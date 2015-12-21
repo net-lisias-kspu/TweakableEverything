@@ -1,8 +1,8 @@
-// TweakableCrossFeed, a TweakableEverything module
+﻿// TweakableControlSurfaces, a TweakableEverything module
 //
-// ModuleTweakableCrossFeed.cs
+// ModuleTweakableControlSurface.cs
 //
-// Copyright © 2014, toadicus
+// Copyright © 2015, toadicus
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -28,68 +28,60 @@
 
 using KSP;
 using System;
-using System.Collections.Generic;
-using ToadicusTools;
+using ToadicusTools.Extensions;
 using UnityEngine;
 
-namespace TweakableEverything
+namespace TweakableControlSurfaces
 {
-	#if DEBUG
-	public class ModuleTweakableCrossFeed : DebugPartModule
-	#else
-	public class ModuleTweakableCrossFeed : PartModule
-	#endif
+	public class ModuleTweakableControlSurface : PartModule
 	{
-		/*
-		 * Ctor
-		 * Build ALL the objects.
-		 * */
-		public ModuleTweakableCrossFeed() : base()
+		private ModuleControlSurface ctrlModule;
+
+		private float baseCtrlRange;
+		private float throttleCache;
+
+		[KSPField(
+			isPersistant = true,
+			guiName = "Control Limiter",
+			guiFormat = "P2",
+			guiActive = false,
+			guiActiveEditor = true
+		)]
+		[UI_FloatRange(minValue = 0f, maxValue = 1f, stepIncrement = 0.05f)]
+		public float ctrlThrottle;
+
+		public override void OnAwake()
 		{
-			this.fuelCrossFeed = true;
+			base.OnAwake();
+
+			this.ctrlThrottle = 1f;
+			this.baseCtrlRange = 15f;
 		}
 
-		[KSPField(isPersistant = true, guiName = "Crossfeed", guiActiveEditor = true, guiActive = true),
-		UI_Toggle(disabledText = "Disabled", enabledText = "Enabled")]
-		public bool fuelCrossFeed;
-
-		// Gets the base part's fuelCrossFeed value.
-		public bool partCrossFeed
+		public override void OnStart(StartState state)
 		{
-			get
+			base.OnStart(state);
+
+			if (this.part.tryGetFirstModuleOfType(out this.ctrlModule))
 			{
-				return base.part.fuelCrossFeed;
+				this.baseCtrlRange = this.ctrlModule.ctrlSurfaceRange;
 			}
-			set
-			{
-				base.part.fuelCrossFeed = value;
-			}
+
+			this.throttleCache = this.ctrlThrottle + 1f;
 		}
 
-		/*
-		 * Methods
-		 * */
-		// Runs when each new part is started.
-		public override void OnStart(StartState st)
+		public void FixedUpdate()
 		{
-			this.partCrossFeed = this.fuelCrossFeed;
-		}
-
-		// Runs every LateUpdate, because that's how Unity rolls.
-		// We're running at LateUpdate to avoid hiding Update, since ModuleDockingNode's Update is private and we
-		// can't call it.
-		public void LateUpdate()
-		{
-			// If we are in flight...
-			if (HighLogic.LoadedSceneIsFlight)
+			if (
+				HighLogic.LoadedSceneIsFlight &&
+				this.throttleCache != this.ctrlThrottle
+			)
 			{
-				// ...and if the crossfeed status has changed...
-				if (this.fuelCrossFeed != this.partCrossFeed)
-				{
-					// ...assign our crossfeed status to the part, since that's where it matters.
-					this.partCrossFeed = this.fuelCrossFeed;
-				}
+				this.throttleCache = this.ctrlThrottle;
+
+				this.ctrlModule.ctrlSurfaceRange = this.baseCtrlRange * this.ctrlThrottle;
 			}
 		}
 	}
 }
+

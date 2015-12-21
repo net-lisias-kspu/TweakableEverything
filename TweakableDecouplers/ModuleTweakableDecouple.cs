@@ -30,11 +30,14 @@ using KSP;
 using KSPAPIExtensions;
 using System;
 using System.Collections.Generic;
-using ToadicusTools;
+using ToadicusTools.Extensions;
 using UnityEngine;
 
 namespace TweakableEverything
 {
+	/*
+	 * @TODO: Remove this whole module in favor of a simple MM patch on top of Squad's percentage slider, or 
+	 * */
 	#if DEBUG
 	public class ModuleTweakableDecouple : DebugPartModule
 	#else
@@ -51,7 +54,7 @@ namespace TweakableEverything
 		// Stores the tweaked ejectionForce for clobbering the value in the real decouplerModule.
 		[KSPField(isPersistant = true, guiName = "Ejection Force", guiUnits = "N", guiFormat = "S2+3",
 			guiActiveEditor = true, guiActive = false)]
-		[UI_FloatEdit(minValue = float.MinValue, maxValue = float.MaxValue, incrementSlide = 1f)]
+		[UI_FloatRange(minValue = float.MinValue, maxValue = float.MaxValue, stepIncrement = 1f)]
 		public float ejectionForce;
 
 		// Stores the configurable multiplier for the lower bound on the FloatRange
@@ -61,8 +64,9 @@ namespace TweakableEverything
 		[KSPField(isPersistant = false)]
 		public float upperMult;
 
+		/* @stockified
 		[KSPField(isPersistant = true)]
-		public bool staged;
+		public bool staged;*/
 
 		// Construct ALL the objects.
 		public ModuleTweakableDecouple() : base()
@@ -70,7 +74,9 @@ namespace TweakableEverything
 			// We'll use -1 to mean "uninitialized" for purposes of defaulting to the base module's value
 			this.ejectionForce = -1;
 
+			/* @stockified
 			this.staged = true;
+			*/
 
 			// Set the default multipler bounds.
 			this.lowerMult = 0f;
@@ -105,7 +111,7 @@ namespace TweakableEverything
 					// Build initialize the FloatRange with upper and lower bounds from the cfg file, center value from the
 					// prefab, and current value from persistence
 					TweakableTools.InitializeTweakable<ModuleTweakableDecouple>(
-						(UI_FloatEdit)this.Fields["ejectionForce"].uiControlCurrent(),
+						(UI_FloatRange)this.Fields["ejectionForce"].uiControlCurrent(),
 						ref this.ejectionForce,
 						ref remoteEjectionForce,
 						prefabModule.Fields["ejectionForce"].GetValue<float>(prefabModule),
@@ -117,18 +123,26 @@ namespace TweakableEverything
 					// this sets the ejectionForce from our persistent value when the part is started.
 					this.decoupleModule.Fields["ejectionForce"].SetValue(remoteEjectionForce, this.decoupleModule);
 
+					/* @stockified
 					this.decoupleModule.Fields["staged"].SetValue(this.staged, this.decoupleModule);
+					*/
+
+					this.decoupleModule.Fields["ejectionForcePercent"].guiActive = false;
+					this.decoupleModule.Fields["ejectionForcePercent"].guiActiveEditor = false;
+					this.decoupleModule.Fields["ejectionForcePercent"].uiControlCurrent().controlEnabled = false;
 				}
 
+				/* @stockified
 				ModuleStagingToggle stagingToggleModule;
 
 				if (this.part.tryGetFirstModuleOfType<ModuleStagingToggle>(out stagingToggleModule))
 				{
 					stagingToggleModule.OnToggle += new ModuleStagingToggle.ToggleEventHandler(this.OnStagingToggle);
-				}
+				}*/
 			}
 		}
 
+		/* @stockified
 		public void LateUpdate()
 		{
 			try
@@ -160,6 +174,6 @@ namespace TweakableEverything
 			// Clobber the "staged" field in the decoupler module
 			this.decoupleModule.Fields["staged"].SetValue(arg.Value, this.decoupleModule);
 			this.staged = arg.Value;
-		}
+		}*/
 	}
 }

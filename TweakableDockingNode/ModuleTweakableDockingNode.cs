@@ -27,10 +27,9 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using KSP;
-using KSPAPIExtensions;
 using System;
 using System.Collections.Generic;
-using ToadicusTools;
+using ToadicusTools.Extensions;
 using UnityEngine;
 
 namespace TweakableEverything
@@ -41,58 +40,6 @@ namespace TweakableEverything
 	public class ModuleTweakableDockingNode : PartModule
 	#endif
 	{
-		public static bool PartIsStagingDockingPort(Part part, out ModuleTweakableDockingNode firstTweakableNode)
-		{
-			firstTweakableNode = null;
-
-			if (part == null || part.Modules == null)
-			{
-				Tools.PostWarningMessage("[PartIsStagingDockingPort]: Part or Part.Modules are null, returning false");
-				return false;
-			}
-
-			bool partHasDockingNode = false;
-			bool partHasActiveStagingToggle = false;
-
-			PartModule module;
-			for (int i = 0; i < part.Modules.Count; i++)
-			{
-				module = part.Modules[i];
-
-				if (module is ModuleDockingNode)
-				{
-					partHasDockingNode = true;
-					part.LogDebug("has docking node {0}", module as ModuleDockingNode);
-				}
-
-				if (module is ModuleStagingToggle)
-				{
-					ModuleStagingToggle toggleModule = module as ModuleStagingToggle;
-
-					if (toggleModule.stagingEnabled)
-					{
-						partHasActiveStagingToggle = true;
-						part.LogDebug("has active staging toggle {0}", toggleModule);
-					}
-				}
-
-				if (module is ModuleTweakableDockingNode)
-				{
-					firstTweakableNode = module as ModuleTweakableDockingNode;
-					part.LogDebug("has tweakable docking node {0}", firstTweakableNode);
-				}
-
-				if (partHasDockingNode && partHasActiveStagingToggle && firstTweakableNode != null)
-				{
-					part.LogDebug("returning true");
-					return true;
-				}
-			}
-
-			part.LogDebug("returning false");
-			return false;
-		}
-
 		/*
 		 * Ctor
 		 * Build ALL the objects.
@@ -101,7 +48,6 @@ namespace TweakableEverything
 		{
 			this.lastOpenState = false;
 			this.AlwaysAllowStack = false;
-			this.fuelCrossFeed = true;
 
 			this.deployAnimationControllerName = string.Empty;
 			this.TDNnodeName = string.Empty;
@@ -111,6 +57,8 @@ namespace TweakableEverything
 			this.acquireTorque = -1;
 			this.undockEjectionForce = -1;
 			this.minDistanceToReEngage = -1;
+
+			this.maxRollAngle = 90f;
 		}
 
 		/*
@@ -135,44 +83,58 @@ namespace TweakableEverything
 		[KSPField(isPersistant = false)]
 		public bool AlwaysAllowStack;
 
+		[KSPField(isPersistant = true)]
+		public float minRollDotProduct;
+
+		/// <summary>
+		/// Maximum roll angle of separation for docking, in degrees.
+		/// </summary>
+		[KSPField(
+			isPersistant = false,
+			guiName = "Maximum Roll Angle",
+			guiUnits = "°", guiFormat = "F0",
+			guiActive = true, guiActiveEditor = true
+		)]
+		[UI_FloatRange(minValue = 0, maxValue = 90, stepIncrement = 5f, scene = UI_Scene.Editor)]
+		public float maxRollAngle;
+
+		public float lastMaxRollAngle;
+
 		// Stores the open/closed state of the shield.
 		protected bool lastOpenState;
 
-		private bool yieldedDecouple;
-
-		[KSPField(isPersistant = true, guiName = "Crossfeed", guiActiveEditor = true, guiActive = true),
-		UI_Toggle(disabledText = "Disabled", enabledText = "Enabled")]
-		public bool fuelCrossFeed;
+		/* @subclass
+		private bool yieldedDecouple;*/
 
 		[KSPField(isPersistant = true, guiName = "Acquire Range", guiUnits = "m", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
-		[UI_FloatEdit(minValue = -1f, maxValue = float.MaxValue, incrementSlide = 1f)]
+		[UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
 		public float acquireRange;
 
 		[KSPField(isPersistant = true, guiName = "Acquire Force", guiUnits = "kN", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
-		[UI_FloatEdit(minValue = -1f, maxValue = float.MaxValue, incrementSlide = 1f)]
+		[UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
 		public float acquireForce;
 
 		[KSPField(isPersistant = true, guiName = "Acquire Torque", guiUnits = "kN-m", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
-		[UI_FloatEdit(minValue = -1f, maxValue = float.MaxValue, incrementSlide = 1f)]
+		[UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
 		public float acquireTorque;
 
 		[KSPField(isPersistant = true, guiName = "Ejection Force", guiUnits = "kN", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
-		[UI_FloatEdit(minValue = -1f, maxValue = float.MaxValue, incrementSlide = 1f)]
+		[UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
 		public float undockEjectionForce;
 
 		[KSPField(isPersistant = true, guiName = "Re-engage Distance", guiUnits = "m", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
-		[UI_FloatEdit(minValue = -1f, maxValue = float.MaxValue, incrementSlide = 1f)]
+		[UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
 		public float minDistanceToReEngage;
 
 		[KSPField(isPersistant = true)]
 		protected bool isDecoupled;
 
-		protected bool stagingEnabled;
+		// protected bool stagingEnabled;
 
 		// Gets the base part's fuelCrossFeed value.
 		public bool partCrossFeed
@@ -212,7 +174,7 @@ namespace TweakableEverything
 			{
 				if (this.deployAnimation == null)
 				{
-					Tools.PostDebugMessage(this, "deployAnimation is null; open status falling back to true.");
+					this.LogDebug("deployAnimation is null; open status falling back to true.");
 					return true;
 				}
 				else
@@ -289,6 +251,14 @@ namespace TweakableEverything
 				prefabModule.minDistanceToReEngage
 			);
 
+			this.Fields["maxRollAngle"].uiControlFlight.controlEnabled = false;
+
+			this.maxRollAngle = Mathf.Acos(this.minRollDotProduct) * 180f / Mathf.PI;
+			this.dockingNodeModule.acquireMinRollDot = this.minRollDotProduct * this.minRollDotProduct;
+			this.dockingNodeModule.captureMinRollDot = this.minRollDotProduct;
+
+			this.lastMaxRollAngle = this.maxRollAngle;
+
 			// If we have a tweakable AttachNode, use it.
 			if (this.TDNnodeName != string.Empty)
 			{
@@ -296,8 +266,6 @@ namespace TweakableEverything
 			}
 
 			base.part.attachRules.allowStack = this.IsOpen | this.AlwaysAllowStack;
-
-			this.partCrossFeed = this.fuelCrossFeed;
 
 			this.dockingNodeModule.Events["EnableXFeed"].guiActive = false;
 			this.dockingNodeModule.Events["DisableXFeed"].guiActive = false;
@@ -308,16 +276,17 @@ namespace TweakableEverything
 			this.dockingNodeModule.Events["EnableXFeed"].active = false;
 			this.dockingNodeModule.Events["DisableXFeed"].active = false;
 
+			/* @subclass
 			ModuleStagingToggle stagingToggleModule;
 
 			if (this.part.tryGetFirstModuleOfType<ModuleStagingToggle>(out stagingToggleModule))
 			{
 				stagingToggleModule.OnToggle += new ModuleStagingToggle.ToggleEventHandler(this.OnStagingToggle);
-				this.stagingEnabled = stagingToggleModule.stagingEnabled;
 			}
+			*/
 
 			// Yay debugging!
-			Tools.PostDebugMessage(this,
+			this.LogDebug(
 				"{0}: Started with assembly version {4}." +
 				"\n\tdeployAnimationModule={1}, attachNode={2}, TDNnodeName={3}, attachedPart={5}, fuelCrossFeed={6}",
 				this.GetType().Name,
@@ -325,15 +294,14 @@ namespace TweakableEverything
 				this.attachNode,
 				this.TDNnodeName,
 				this.GetType().Assembly.GetName().Version,
-				this.attachedPart,
-				this.fuelCrossFeed
+				this.attachedPart
 			);
 		}
 
 		// Runs every LateUpdate, because that's how Unity rolls.
 		// We're running at LateUpdate to avoid hiding Update, since ModuleDockingNode's Update is private and we
 		// can't call it.
-		public void LateUpdate()
+		public void FixedUpdate()
 		{
 			// If we're in the Editor...
 			if (HighLogic.LoadedSceneIsEditor)
@@ -351,13 +319,13 @@ namespace TweakableEverything
 						base.part.attachRules.allowStack = this.IsOpen | this.AlwaysAllowStack;
 
 						// Yay debugging!
-						Tools.PostDebugMessage(string.Format(
+						this.LogDebug(
 							"{0}: IsOpen changed to: {1}, part contains node: {2}, allowStack: {3}",
 							this.GetType().Name,
 							this.IsOpen,
 							base.part.attachNodes.Contains(this.attachNode),
 							base.part.attachRules.allowStack
-						));
+						);
 					}
 
 					// ...if the port is closed and the attachNode icon is active...
@@ -365,6 +333,14 @@ namespace TweakableEverything
 					{
 						this.attachNode.icon.SetActive(this.IsOpen);
 					}
+				}
+
+				if (this.maxRollAngle != this.lastMaxRollAngle)
+				{
+					this.minRollDotProduct = Mathf.Cos(this.maxRollAngle * Mathf.PI / 180f);
+					this.dockingNodeModule.acquireMinRollDot = this.minRollDotProduct * this.minRollDotProduct;
+					this.dockingNodeModule.captureMinRollDot = this.minRollDotProduct;
+					this.lastMaxRollAngle = this.maxRollAngle;
 				}
 			}
 
@@ -390,16 +366,11 @@ namespace TweakableEverything
 						this.deployAnimation.Events["Toggle"].active = true;
 					}
 				}
-
-				// ...and if the crossfeed status has changed...
-				if (this.fuelCrossFeed != this.partCrossFeed)
-				{
-					// ...assign our crossfeed status to the part, since that's where it matters.
-					this.partCrossFeed = this.fuelCrossFeed;
-				}
 			}
 		}
 
+		/*
+		 * Chopping out OnActive entirely pending reimplementation as a subclass.
 		public override void OnActive()
 		{
 			yieldedDecouple = false;
@@ -443,6 +414,7 @@ namespace TweakableEverything
 				}
 			}
 		}
+		*/
 
 		[KSPAction("Control from Here")]
 		public void MakeReferenceTransformAction(KSPActionParam param)
@@ -453,10 +425,12 @@ namespace TweakableEverything
 			}
 		}
 
+		/*
+		 * @subclass -- Chopping this out pending rewrite; should happen with Stock's logic.
 		protected void OnStagingToggle(object sender, ModuleStagingToggle.BoolArg arg)
 		{
-			Tools.PostDebugMessage(this, "OnStagingToggle called.");
+			this.LogDebug("OnStagingToggle called.");
 			this.stagingEnabled = arg.Value;
-		}
+		}*/
 	}
 }

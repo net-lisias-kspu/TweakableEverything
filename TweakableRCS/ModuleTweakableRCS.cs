@@ -27,10 +27,9 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using KSP;
-using KSPAPIExtensions;
 using System;
 using System.Collections.Generic;
-using ToadicusTools;
+using ToadicusTools.Extensions;
 using UnityEngine;
 
 namespace TweakableRCS
@@ -43,120 +42,51 @@ namespace TweakableRCS
 	{
 		protected ModuleRCS RCSModule;
 
-		// Stores whether the RCS block should start enabled or not.
-		[KSPField(isPersistant = true, guiName = "Thruster", guiActive = false, guiActiveEditor = true)]
-		[UI_Toggle(enabledText = "Enabled", disabledText = "Disabled")]
-		public bool startEnabled;
-		// Stores the last state of startEnabled so we can tell if it's changed.
-		protected bool startEnabledState;
+		[KSPField(isPersistant = true, guiName = "Pitch", guiActive = true, guiActiveEditor = true)]
+		[UI_Toggle(enabledText = "Enabled", disabledText = "Disabled", scene = UI_Scene.Editor)]
+		public bool enablePitch;
+		[KSPField(isPersistant = true, guiName = "Roll", guiActive = true, guiActiveEditor = true)]
+		[UI_Toggle(enabledText = "Enabled", disabledText = "Disabled", scene = UI_Scene.Editor)]
+		public bool enableRoll;
+		[KSPField(isPersistant = true, guiName = "Yaw", guiActive = true, guiActiveEditor = true)]
+		[UI_Toggle(enabledText = "Enabled", disabledText = "Disabled", scene = UI_Scene.Editor)]
+		public bool enableYaw;
 
-		// Stores our thrust limiter value for the RCS block.
-		[KSPField(isPersistant = true, guiName = "Thrust Limiter", guiFormat = "P0",  guiActiveEditor = true, guiActive = true)]
-		[UI_FloatEdit(minValue = 0f, maxValue = 1f, incrementSlide = .025f)]
-		public float thrustLimit;
-
-		protected float baseThrusterPower;
+		[KSPField(isPersistant = true, guiName = "X Translation", guiActive = true, guiActiveEditor = true)]
+		[UI_Toggle(enabledText = "Enabled", disabledText = "Disabled", scene = UI_Scene.Editor)]
+		public bool enableX;
+		[KSPField(isPersistant = true, guiName = "Y Translation", guiActive = true, guiActiveEditor = true)]
+		[UI_Toggle(enabledText = "Enabled", disabledText = "Disabled", scene = UI_Scene.Editor)]
+		public bool enableY;
+		[KSPField(isPersistant = true, guiName = "Z Translation", guiActive = true, guiActiveEditor = true)]
+		[UI_Toggle(enabledText = "Enabled", disabledText = "Disabled", scene = UI_Scene.Editor)]
+		public bool enableZ;
 
 		public ModuleTweakableRCS()
 		{
-			this.startEnabled = true;
-			this.thrustLimit = 1f;
-		}
+			this.enablePitch = true;
+			this.enableRoll = true;
+			this.enableYaw = true;
 
-		public override void OnLoad(ConfigNode node)
-		{
-			base.OnLoad(node);
-
-			if (this.thrustLimit > 1f)
-			{
-				this.thrustLimit /= 100f;
-			}
+			this.enableX = true;
+			this.enableY = true;
+			this.enableZ = true;
 		}
 
 		public override void OnStart(StartState state)
 		{
 			base.OnStart(state);
 
-			this.RCSModule = base.part.getFirstModuleOfType<ModuleRCS>();
-			var prefabModule = this.part.partInfo.partPrefab.getFirstModuleOfType<ModuleRCS>();
-
-			// Only run the assignment if the module exists.
-			if (this.RCSModule != null)
+			if (base.part.tryGetFirstModuleOfType<ModuleRCS>(out this.RCSModule))
 			{
-				this.startEnabledState = !this.startEnabled;
-			}
+				this.RCSModule.enablePitch = this.enablePitch;
+				this.RCSModule.enableRoll = this.enableRoll;
+				this.RCSModule.enableYaw = this.enableYaw;
 
-			if (prefabModule != null)
-			{
-				this.baseThrusterPower = prefabModule.thrusterPower;
-			}
-
-			var thrustLimitCtl = this.Fields["thrustLimit"].uiControlCurrent();
-
-			if (thrustLimitCtl is UI_FloatEdit)
-			{
-				var thrustLimitSlider = thrustLimitCtl as UI_FloatEdit;
-
-				thrustLimitSlider.maxValue = 1f;
-				thrustLimitSlider.incrementSlide = 0.025f;
+				this.RCSModule.enableX = this.enableX;
+				this.RCSModule.enableY = this.enableY;
+				this.RCSModule.enableZ = this.enableZ;
 			}
 		}
-
-		// Runs late in the update cycle
-		public void LateUpdate()
-		{
-			// Do nothing if the RCS module is null.
-			if (this.RCSModule == null)
-			{
-				return;
-			}
-
-			// If we're in the editor...
-			if (HighLogic.LoadedSceneIsEditor)
-			{
-				// ...and if our startEnabled state has changed...
-				if (this.startEnabled != this.startEnabledState)
-				{
-					// ...refresh startEnabledState
-					this.startEnabledState = this.startEnabled;
-
-					// ...and if we're starting enabled...
-					if (this.startEnabled)
-					{
-						// ...set the reaction wheel module to active
-						this.RCSModule.rcsEnabled = true;
-					}
-					// ...otherwise, we're starting disabled...
-					else
-					{
-						// ...set heel module to disabled
-						this.RCSModule.rcsEnabled = false;
-					}
-				}
-			}
-
-			this.RCSModule.thrusterPower = this.baseThrusterPower * this.thrustLimit;
-
-			FXGroup fx;
-			for (int idx = 0; idx < this.RCSModule.thrusterFX.Count; idx++)
-			{
-				fx = this.RCSModule.thrusterFX[idx];
-				fx.Power *= this.thrustLimit;
-			}
-		}
-
-		[KSPAction("Enable Thruster")]
-		public void ActionEnableThruster(KSPActionParam param)
-		{
-			this.RCSModule.Enable();
-		}
-
-		[KSPAction("Disable Thruster")]
-		public void ActionDisableThruster(KSPActionParam param)
-		{
-			this.RCSModule.Disable();
-		}
-
 	}
 }
-

@@ -64,7 +64,7 @@
     <Compile Include="ModuleTweakableDockingNode.cs" />
     <Compile Include="TDNProtoUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\..\ToadicusTools\TweakableTools.cs">
+    <Compile Include="..\..\ToadicusTools\TweakableTools\TweakableTools.cs">
       <Link>TweakableTools.cs</Link>
     </Compile>
   </ItemGroup>
@@ -81,19 +81,12 @@
     <Reference Include="UnityEngine">
       <HintPath>..\..\_KSPAssemblies\UnityEngine.dll</HintPath>
     </Reference>
-    <Reference Include="KSPAPIExtensions">
-      <HintPath>..\GameData\TweakableEverything\KSPAPIExtensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ToadicusTools\ToadicusTools.csproj">
       <Project>{D48A5542-6655-4149-BC27-B27DF0466F1C}</Project>
       <Name>ToadicusTools</Name>
       <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\TweakableStaging\TweakableStaging.csproj">
-      <Project>{44171674-3C98-40EA-AC2A-1D4AFC100EC1}</Project>
-      <Name>TweakableStaging</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

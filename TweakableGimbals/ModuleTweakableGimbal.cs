@@ -27,10 +27,9 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using KSP;
-using KSPAPIExtensions;
 using System;
 using System.Collections.Generic;
-using ToadicusTools;
+using ToadicusTools.Extensions;
 using UnityEngine;
 
 namespace TweakableEverything
@@ -46,7 +45,7 @@ namespace TweakableEverything
 		// Stores our tweaked value for gimbal range.
 		[KSPField(isPersistant = true, guiName = "Gimbal Range", guiUnits = "°", guiFormat = "F1",
 			guiActiveEditor = true)]
-		[UI_FloatEdit(minValue = float.MinValue, maxValue = float.MaxValue, incrementSlide = .1f)]
+		[UI_FloatRange(minValue = float.MinValue, maxValue = float.MaxValue, stepIncrement = .1f)]
 		public float gimbalRange;
 
 		// Stores our tweaked value for control reversal.
@@ -157,7 +156,7 @@ namespace TweakableEverything
 
 		protected void ToggleGimbalFlip()
 		{
-			Tools.PostDebugMessage(this.GetType().Name, "Reversing gimbal control.");
+			this.LogDebug("Reversing gimbal control.");
 
 			// Literally just negate the gimbal range to change control state.
 			this.gimbalModule.gimbalRange = -this.gimbalModule.gimbalRange;

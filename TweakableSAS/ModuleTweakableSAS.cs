@@ -28,10 +28,10 @@
 
 using Experience.Effects;
 using KSP;
-using KSPAPIExtensions;
 using System;
 using System.Collections.Generic;
-using ToadicusTools;
+using ToadicusTools.DebugTools;
+using ToadicusTools.Extensions;
 using UnityEngine;
 
 namespace TweakableEverything
@@ -48,7 +48,7 @@ namespace TweakableEverything
 
 		#region Fields
 		[KSPField(isPersistant = true, guiName = "SAS Autopilot", guiFormat = "Level #0", guiActiveEditor = true)]
-		[UI_FloatEdit(maxValue = 3, minValue = 0, incrementSlide = 1)]
+		[UI_FloatRange(maxValue = 3, minValue = 0, stepIncrement = 1)]
 		public float SASServiceLevel;
 
 		private ModuleSAS sasModule;
@@ -101,7 +101,7 @@ namespace TweakableEverything
 						}
 						catch
 						{
-							Tools.PostErrorMessage(
+							this.LogDebug(
 								"Failed converting {0}.{1} to int.",
 								typeof(AutopilotSkill.Skills).GetType().Name,
 								Enum.GetName(typeof(AutopilotSkill.Skills), apModes.GetValue(idx))
@@ -111,52 +111,53 @@ namespace TweakableEverything
 
 					researchedPartsLoaded = true;
 
-					Tools.PostDebugMessage(this, "Sandbox mode: maxSASServiceLevel = {0}", maxSASServiceLevel);
+					this.LogDebug("Sandbox mode: maxSASServiceLevel = {0}", maxSASServiceLevel);
 
 					return;
 			}
 
-			Tools.PostDebugMessage(this, "Searching for researched parts with SAS modules...");
+			this.LogDebug("Searching for researched parts with SAS modules...");
 
-			var logger = Tools.DebugLogger.New(this);
-
-			AvailablePart part;
-			for (int idx = 0; idx < PartLoader.LoadedPartsList.Count; idx++)
+			using (var logger = PooledDebugLogger.New(this))
 			{
-				part = PartLoader.LoadedPartsList[idx];
-
-				logger.AppendFormat("Checking {0}...", part.title);
-
-				if (ResearchAndDevelopment.PartTechAvailable(part))
+				AvailablePart part;
+				for (int idx = 0; idx < PartLoader.LoadedPartsList.Count; idx++)
 				{
-					logger.Append(" researched...");
+					part = PartLoader.LoadedPartsList[idx];
 
-					ModuleSAS sasModule;
+					logger.AppendFormat("Checking {0}...", part.title);
 
-					if (part.partPrefab.tryGetFirstModuleOfType(out sasModule))
+					if (ResearchAndDevelopment.PartTechAvailable(part))
 					{
-						logger.Append(" has SAS module, adding to list.");
+						logger.Append(" researched...");
 
-						researchedSASParts.Add(part);
+						ModuleSAS sasModule;
 
-						maxSASServiceLevel = Math.Max(sasModule.SASServiceLevel, maxSASServiceLevel);
+						if (part.partPrefab.tryGetFirstModuleOfType(out sasModule))
+						{
+							logger.Append(" has SAS module, adding to list.");
 
-						logger.AppendFormat(" \n\tmaxSASServiceLevel = {0}.", maxSASServiceLevel);
+							researchedSASParts.Add(part);
+
+							maxSASServiceLevel = Math.Max(sasModule.SASServiceLevel, maxSASServiceLevel);
+
+							logger.AppendFormat(" \n\tmaxSASServiceLevel = {0}.", maxSASServiceLevel);
+						}
 					}
-				}
-				#if DEBUG
+					#if DEBUG
 				else
 				{
 					logger.Append(" not researched!");
 				}
-				#endif
+					#endif
 
-				logger.Append('\n');
+					logger.Append('\n');
+				}
+
+				logger.Append("Researched SAS parts loaded.");
+
+				logger.Print();
 			}
-
-			logger.Append("Researched SAS parts loaded.");
-
-			logger.Print();
 
 			researchedPartsLoaded = true;
 		}
@@ -167,7 +168,7 @@ namespace TweakableEverything
 
 			if (state == StartState.Editor)
 			{
-				UI_FloatEdit sasTweak = this.Fields["SASServiceLevel"].uiControlEditor as UI_FloatEdit;
+				UI_FloatRange sasTweak = this.Fields["SASServiceLevel"].uiControlEditor as UI_FloatRange;
 
 				sasTweak.maxValue = maxSASServiceLevel;
 			}
@@ -186,7 +187,7 @@ namespace TweakableEverything
 
 			if (this.sasModule.SASServiceLevel != this.SASServiceLevel)
 			{
-				Tools.PostDebugMessage(this, "Setting ModuleSAS service level to {1} (was {0}).",
+				this.LogDebug("Setting ModuleSAS service level to {1} (was {0}).",
 					this.sasModule.SASServiceLevel, this.SASServiceLevel
 				);
 
@@ -206,7 +207,7 @@ namespace TweakableEverything
 		{
 			if (scene == GameScenes.MAINMENU)
 			{
-				Tools.PostDebugMessage(this, "Main menu loaded; resetting cache.");
+				this.LogDebug("Main menu loaded; resetting cache.");
 
 				researchedPartsLoaded = false;
 				maxSASServiceLevel = 0;
@@ -220,7 +221,7 @@ namespace TweakableEverything
 
 			if (apart.partPrefab.tryGetFirstModuleOfType<ModuleSAS>(out module))
 			{
-				Tools.PostDebugMessage(this, "Purchased new SAS part {0}: SASServiceLevel = {1} (old max = {2}).",
+				this.LogDebug("Purchased new SAS part {0}: SASServiceLevel = {1} (old max = {2}).",
 					apart.title, module.SASServiceLevel, maxSASServiceLevel
 				);
 
