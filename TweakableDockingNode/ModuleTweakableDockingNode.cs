@@ -273,7 +273,7 @@ namespace TweakableEverything
 			// If we have a tweakable AttachNode, use it.
 			if (this.TDNnodeName != string.Empty)
 			{
-				this.attachNode = base.part.findAttachNode(this.TDNnodeName);
+				this.attachNode = base.part.FindAttachNode(this.TDNnodeName);
 			}
 
 			base.part.attachRules.allowStack = this.IsOpen | this.AlwaysAllowStack;

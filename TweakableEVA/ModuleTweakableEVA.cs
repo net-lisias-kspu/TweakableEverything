@@ -31,6 +31,9 @@ using System;
 using System.Collections.Generic;
 using ToadicusTools.Extensions;
 using UnityEngine;
+#if DEBUG
+using ToadicusTools.DebugTools;
+#endif
 
 namespace TweakableEVA
 {

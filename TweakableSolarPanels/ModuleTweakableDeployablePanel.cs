@@ -35,7 +35,7 @@ using UnityEngine;
 
 namespace TweakableEverything
 {
-	#if DEBUG
+	#if DEBUG 
 	public class ModuleTweakableDeployablePanel : ToadicusTools.DebugTools.DebugPartModule
 	#else
 	public class ModuleTweakableDeployablePanel : PartModule
@@ -77,8 +77,9 @@ namespace TweakableEverything
 		// Runs on PartModule startup.
 		public override void OnStart(StartState state)
 		{
-			// Startup the PartModule stuff first.
-			base.OnStart(state);
+            this.LogDebug("ModuleTweakableDeployablePanel.OnStart");
+            // Startup the PartModule stuff first.
+            base.OnStart(state);
 
 			// Fetch the solar panel module from the part.
 			if (this.part.tryGetFirstModuleByName(this.moduleType, out this.panelModule))
@@ -134,11 +135,13 @@ namespace TweakableEverything
 				// If the panel is sun tracking panel...
 				if (sunTrackingField == null)
 				{
-					sunTrackingField = this.panelModule.GetType().GetField("sunTracking");
-				}
+                    sunTrackingField = this.panelModule.GetType().GetField("isTracking");
+                }
 
-				bool moduleIsSunTracking = (bool)sunTrackingField.GetValue(this.panelModule);
-
+                bool moduleIsSunTracking = false;
+                if (sunTrackingField != null)
+                    moduleIsSunTracking = (bool)sunTrackingField.GetValue(this.panelModule);
+                Debug.Log("sunTracking 2");
 				if (moduleIsSunTracking)
 				{
 					if (trackingSpeedField == null)

@@ -30,6 +30,9 @@ using KSP;
 using System;
 using System.Collections.Generic;
 using System.Text;
+#if DEBUG
+using ToadicusTools.DebugTools;
+#endif
 using ToadicusTools.Extensions;
 using UnityEngine;
 
