@@ -7,8 +7,8 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{047D6609-21D0-4DD0-A8A0-37BB9D270100}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>TweakableSolarPanels</RootNamespace>
-    <AssemblyName>TweakableSolarPanels</AssemblyName>
+    <RootNamespace>TweakableEverything</RootNamespace>
+    <AssemblyName>TweakableDeployablePanels</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <ReleaseVersion>1.2</ReleaseVersion>
     <UseMSBuildEngine>False</UseMSBuildEngine>
@@ -59,11 +59,16 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="AssemblyFileVersion.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssemblyFileVersion.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModuleTweakableDeployablePanel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\GameData\TweakableEverything\TweakableSolarPanels.cfg" />
+    <None Include="TweakableDeployablePanels.cfg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ToadicusTools\ToadicusTools.csproj">
@@ -88,4 +93,21 @@
       <HintPath>R:\KSP_1.1.4_dev\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="AssemblyFileVersion.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyFileVersion.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PreBuildEvent>set textTemplatingPath="%25CommonProgramFiles(x86)%25\Microsoft Shared\TextTemplating\$(VisualStudioVersion)\texttransform.exe"
+
+if %25textTemplatingPath%25=="\Microsoft Shared\TextTemplating\$(VisualStudioVersion)\texttransform.exe" set textTemplatingPath="%25CommonProgramFiles%25\Microsoft Shared\TextTemplating\$(VisualStudioVersion)\texttransform.exe"
+
+%25textTemplatingPath%25 "$(ProjectDir)AssemblyFileVersion.tt"
+</PreBuildEvent>
+  </PropertyGroup>
 </Project>
