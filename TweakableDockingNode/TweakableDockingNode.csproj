@@ -74,7 +74,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\GameData\TweakableEverything\TweakableDockingNode.cfg" />
-    <None Include="deploy.bat" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ToadicusTools\ToadicusTools.csproj">
@@ -118,11 +117,7 @@ if %25textTemplatingPath%25=="\Microsoft Shared\TextTemplating\$(VisualStudioVer
 </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>start /D D:\Users\jbb\github\Toadicus\TweakableEverything\TweakableDockingNode  /WAIT deploy.bat
-
-if $(ConfigurationName) == Release (
-rem start /D D:\Users\jbb\github\Toadicus\TweakableEverything\TweakableDockingNode   /WAIT buildRelease.bat
-)
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
