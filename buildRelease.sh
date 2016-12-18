@@ -31,3 +31,14 @@ version="${major}.${minor}.${patch}"
 releasedir=/d/Users/jbb/release
 fname="${releasedir}/TweakableEverything-${version}.zip"
 zip -9r $fname GameData
+
+
+v="${d}/GameData/ToadicusTools/ToadicusTools.version"
+major=`grep -m 1 MAJOR $v  | cut -f2 -d':' | tr -d , | tr -d '[:space:]'`
+minor=`grep -m 1 MINOR $v  | cut -f2 -d':' | tr -d ,| tr -d '[:space:]'`
+patch=`grep -m 1 PATCH $v  | cut -f2 -d':' | tr -d ,| tr -d '[:space:]'`
+version="${major}.${minor}.${patch}"
+
+releasedir=/d/Users/jbb/release
+fname="${releasedir}/ToadicusTools-${version}.zip"
+zip -9r $fname GameData/ToadicusTools
