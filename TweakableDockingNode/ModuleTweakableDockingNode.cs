@@ -54,8 +54,8 @@ namespace TweakableEverything
 			this.undockEjectionForce = -1;
 			this.minDistanceToReEngage = -1;
 
-			this.maxCaptureRollAngle = 90f;
-			this.maxAcquireRollAngle = 90f;
+			this.maxCaptureRollAngle = 179.95f;
+			this.maxAcquireRollAngle = 179.95f;
 		}
 
 		/*
@@ -92,7 +92,7 @@ namespace TweakableEverything
 			guiUnits = "°", guiFormat = "F0",
 			guiActive = true, guiActiveEditor = true
 		)]
-		[UI_FloatRange(minValue = 0, maxValue = 90, stepIncrement = 5f, scene = UI_Scene.Editor)]
+		[UI_FloatRange(minValue = 0, maxValue = 180, stepIncrement = 5f, scene = UI_Scene.Editor)]
 		public float maxCaptureRollAngle;
 
 		public float lastMaxCaptureRollAngle;
@@ -109,7 +109,7 @@ namespace TweakableEverything
 			guiUnits = "°", guiFormat = "F0",
 			guiActive = true, guiActiveEditor = true
 		)]
-		[UI_FloatRange(minValue = 0, maxValue = 90, stepIncrement = 5f, scene = UI_Scene.Editor)]
+		[UI_FloatRange(minValue = 0, maxValue = 180, stepIncrement = 5f, scene = UI_Scene.Editor)]
 		public float maxAcquireRollAngle;
 
 		public float lastMaxAcquireRollAngle;
@@ -120,10 +120,12 @@ namespace TweakableEverything
 		/* @subclass
 		private bool yieldedDecouple;*/
 
-		[KSPField(isPersistant = true, guiName = "Acquire Range", guiUnits = "m", guiFormat = "F2",
+		[KSPField(isPersistant = true, guiName = "new Acquire Range", guiUnits = "m", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
-		[UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
-		public float acquireRange;
+//        [UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
+        [UI_FloatRange(minValue = 0.2f, maxValue = 1f, stepIncrement = .1f)]
+
+        public float acquireRange;
 
 		[KSPField(isPersistant = true, guiName = "Acquire Force", guiUnits = "kN", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
@@ -225,7 +227,10 @@ namespace TweakableEverything
 				prefabModule.acquireRange
 			);
 
-			TweakableTools.InitializeTweakable<ModuleTweakableDockingNode>(
+            UI_FloatRange floatRange = this.Fields["acquireRange"].uiControlCurrent() as UI_FloatRange;
+            floatRange.minValue = 0.2f;
+
+            TweakableTools.InitializeTweakable<ModuleTweakableDockingNode>(
 				this.Fields["acquireForce"].uiControlCurrent(),
 				ref this.acquireForce,
 				ref this.dockingNodeModule.acquireForce,
@@ -348,8 +353,13 @@ namespace TweakableEverything
 				{
 					this.maxAcquireRollAngle = this.maxCaptureRollAngle;
 				}
+                if (maxAcquireRollAngle == 180)
+                    maxAcquireRollAngle = 179.95f;
+                if (maxCaptureRollAngle == 180)
+                    maxCaptureRollAngle = 179.95f;
 
-				if (this.maxAcquireRollAngle != this.lastMaxAcquireRollAngle)
+
+                if (this.maxAcquireRollAngle != this.lastMaxAcquireRollAngle)
 				{
 					this.minAcquireRollDotProduct = Mathf.Cos(this.maxAcquireRollAngle * Mathf.PI / 180f);
 					this.dockingNodeModule.acquireMinRollDot = this.minAcquireRollDotProduct;

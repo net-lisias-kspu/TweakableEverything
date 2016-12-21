@@ -1,0 +1,3 @@
+0.1.18
+	Added minim value to Docking Node acquision range
+	Increased rotation angle to 179.95
