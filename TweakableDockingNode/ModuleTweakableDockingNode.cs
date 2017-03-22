@@ -68,7 +68,7 @@ namespace TweakableEverything
 		[KSPField(isPersistant = false)]
 		public string deployAnimationControllerName;
 		// Wrap the animation.
-		protected ModuleAnimateGeneric deployAnimation;
+		protected ModuleAnimateGeneric deployAnimation = null;
 
 		// String containing the name of the AttachNode that we will toggle.
 		[KSPField(isPersistant = false)]
@@ -210,8 +210,18 @@ namespace TweakableEverything
 			{
 				return;
 			}
+            if (this.dockingNodeModule.deployAnimationController != -1)
+            {
+                this.deployAnimation = (base.part.Modules.GetModule(this.dockingNodeModule.deployAnimationController) as ModuleAnimateGeneric);
+            }
+            else
+            {
+                this.deployAnimation = null;
+              //  return;
+            }
 
-			this.deployAnimation = this.part.getFirstModuleOfType<ModuleAnimateGeneric>();
+          //  this.deployAnimation = this.part.getFirstModuleOfType<ModuleAnimateGeneric>();
+
 			// If we've loaded a deployAnimationControllerName from the cfg...
 
 			// Start the underlying ModuleDockingNode.
@@ -295,14 +305,16 @@ namespace TweakableEverything
 			// Yay debugging!
 			this.LogDebug(
 				"{0}: Started with assembly version {4}." +
-				"\n\tdeployAnimationModule={1}, attachNode={2}, TDNnodeName={3}, attachedPart={5}, fuelCrossFeed={6}",
+                "\n\tdeployAnimationModule={1}, attachNode={2}, TDNnodeName={3}, attachedPart={5}, fuelCrossFeed={6}, AlwaysAllowStack={7} ",
 				this.GetType().Name,
 				this.deployAnimation,
 				this.attachNode,
 				this.TDNnodeName,
 				this.GetType().Assembly.GetName().Version,
-				this.attachedPart
-			);
+				this.attachedPart,
+                base.part.fuelCrossFeed,
+                this.AlwaysAllowStack
+            );
 		}
 
 		// Runs every LateUpdate, because that's how Unity rolls.
