@@ -26,7 +26,11 @@ cp $v ${d}/GameData/TweakableEverything
 major=`grep -m 1 MAJOR TweakableEverything.version  | cut -f2 -d':' | tr -d , | tr -d '[:space:]'`
 minor=`grep -m 1 MINOR TweakableEverything.version  | cut -f2 -d':' | tr -d ,| tr -d '[:space:]'`
 patch=`grep -m 1 PATCH TweakableEverything.version  | cut -f2 -d':' | tr -d ,| tr -d '[:space:]'`
+build=`grep -m 1 BUILD TweakableEverything.version  | cut -f2 -d':' | tr -d ,| tr -d '[:space:]'`
 version="${major}.${minor}.${patch}"
+if [ $build -ne 0 ]; then
+	version="${version}.${build}"
+fi
 
 releasedir=/d/Users/jbb/release
 fname="${releasedir}/TweakableEverything-${version}.zip"

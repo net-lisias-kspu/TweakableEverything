@@ -45,7 +45,7 @@ namespace TweakableEverything
 	{
 		protected ModuleGimbal gimbalModule;
 
-#if false
+#if true
         // Stores our tweaked value for gimbal range.
         [KSPField(isPersistant = true, guiName = "Gimbal Range", guiUnits = "°", guiFormat = "F1",
 			guiActiveEditor = true)]
@@ -66,8 +66,8 @@ namespace TweakableEverything
 		[KSPField(isPersistant = false)]
 		public float upperMult;
 
-//		[KSPField(isPersistant = false)]
-//		public bool disableStockLimiter;
+		[KSPField(isPersistant = false)]
+		public bool disableStockLimiter;
 
 		public ModuleTweakableGimbal()
 		{
@@ -75,7 +75,7 @@ namespace TweakableEverything
 			this.reverseGimbalControl = false;
 			this.lowerMult = 0f;
 			this.upperMult = 2f;
-//			this.disableStockLimiter = true;
+			this.disableStockLimiter = true;
 		}
 
 		// Runs on PartModule startup.
@@ -100,7 +100,7 @@ namespace TweakableEverything
             .FirstOrDefault()
             .gimbalRange*/
 
-#if false
+#if true
             ModuleGimbal gimbalPrefab;
 			if (PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.tryGetFirstModuleOfType(out gimbalPrefab))
 			{
@@ -132,7 +132,7 @@ namespace TweakableEverything
 					this.reverseControlState = this.reverseGimbalControl;
 				}
 			}
-#if false
+#if true
             if (this.disableStockLimiter)
 			{
 				this.gimbalModule.Fields["gimbalLimiter"].guiActive = false;
