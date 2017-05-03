@@ -266,6 +266,7 @@ namespace TweakableEverything
 		{
 			// Don't run if Flight isn't ready yet.
 			if (
+				runOnce ||
 				FlightDriver.FlightStateCache == null ||
 				FlightDriver.FlightStateCache.flightState == null ||
 				FlightDriver.FlightStateCache.flightState.protoVessels == null
