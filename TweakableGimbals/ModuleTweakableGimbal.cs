@@ -31,6 +31,9 @@ using System;
 using System.Collections.Generic;
 using ToadicusTools.Extensions;
 using UnityEngine;
+#if DEBUG
+using ToadicusTools.DebugTools;
+#endif
 
 namespace TweakableEverything
 {
@@ -42,11 +45,13 @@ namespace TweakableEverything
 	{
 		protected ModuleGimbal gimbalModule;
 
-		// Stores our tweaked value for gimbal range.
-		[KSPField(isPersistant = true, guiName = "Gimbal Range", guiUnits = "°", guiFormat = "F1",
+#if true
+        // Stores our tweaked value for gimbal range.
+        [KSPField(isPersistant = true, guiName = "Gimbal Range", guiUnits = "°", guiFormat = "F1",
 			guiActiveEditor = true)]
 		[UI_FloatRange(minValue = float.MinValue, maxValue = float.MaxValue, stepIncrement = .1f)]
 		public float gimbalRange;
+#endif
 
 		// Stores our tweaked value for control reversal.
 		[KSPField(isPersistant = true, guiName = "Control", guiActiveEditor = true, guiActive = true)]
@@ -66,7 +71,7 @@ namespace TweakableEverything
 
 		public ModuleTweakableGimbal()
 		{
-			this.gimbalRange = -1f;
+			//this.gimbalRange = -1f;
 			this.reverseGimbalControl = false;
 			this.lowerMult = 0f;
 			this.upperMult = 2f;
@@ -84,18 +89,19 @@ namespace TweakableEverything
 
 			// Fetch the gimbal module from the part.
 			this.gimbalModule = base.part.getFirstModuleOfType<ModuleGimbal>();
-
+            
 			if (this.gimbalModule == null)
 			{
 				return;
 			}
 
-			//PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.Modules
-				/*.OfType<ModuleGimbal>()
-				.FirstOrDefault()
-				.gimbalRange*/
+            //PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.Modules
+            /*.OfType<ModuleGimbal>()
+            .FirstOrDefault()
+            .gimbalRange*/
 
-			ModuleGimbal gimbalPrefab;
+#if true
+            ModuleGimbal gimbalPrefab;
 			if (PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.tryGetFirstModuleOfType(out gimbalPrefab))
 			{
 				// Initialize the gimbal range tweakable and value.
@@ -108,14 +114,15 @@ namespace TweakableEverything
 					this.upperMult
 				);
 			}
+#endif
 
 			// If we're in flight mode...
 			if (HighLogic.LoadedSceneIsFlight)
 			{
 				// ...and if our control state and gimbal range don't match...
 				if (
-					(this.reverseGimbalControl && this.gimbalRange >= 0) ||
-					(!this.reverseGimbalControl && this.gimbalRange < 0)
+					(this.reverseGimbalControl && this.gimbalModule.gimbalRange >= 0) ||
+					(!this.reverseGimbalControl && this.gimbalModule.gimbalRange < 0)
 				)
 				{
 					// ...toggle the reverse state.
@@ -125,12 +132,13 @@ namespace TweakableEverything
 					this.reverseControlState = this.reverseGimbalControl;
 				}
 			}
-
-			if (this.disableStockLimiter)
+#if true
+            if (this.disableStockLimiter)
 			{
 				this.gimbalModule.Fields["gimbalLimiter"].guiActive = false;
 				this.gimbalModule.Fields["gimbalLimiter"].guiActiveEditor = false;
 			}
+#endif
 		}
 
 		public void LateUpdate()
@@ -160,9 +168,12 @@ namespace TweakableEverything
 
 			// Literally just negate the gimbal range to change control state.
 			this.gimbalModule.gimbalRange = -this.gimbalModule.gimbalRange;
-			// Seed this in the persistence file.
-			this.gimbalRange = this.gimbalModule.gimbalRange;
-		}
+            Debug.Log("gimbalRange: " + this.gimbalModule.gimbalRange.ToString());
+            // Seed this in the persistence file.
+            //this.gimbalRange = this.gimbalModule.gimbalRange;
+            this.gimbalModule.flipYZ = !this.gimbalModule.flipYZ;
+
+        }
 
 		// Puts this in an action group.
 		[KSPAction("Toggle Gimbal Control Flip")]

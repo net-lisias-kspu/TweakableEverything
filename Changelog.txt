@@ -1,0 +1,10 @@
+0.1.18
+	Added minim value to Docking Node acquision range
+	Increased rotation angle to 179.95
+
+0.1.19
+	Fixed TweakableDockingNode shield code to only activate on shielded ports, not all ports with animation
+	Added OPT docking ports
+
+0.1.19.1
+	Re-enabled the Tweakable Gimbal
