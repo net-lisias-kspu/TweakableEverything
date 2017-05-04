@@ -8,3 +8,7 @@
 
 0.1.19.1
 	Re-enabled the Tweakable Gimbal
+
+0.1.19.2
+	Fixed Tweakable Gimbal to not be disabled at start (with a range of 0)
+	Fixed some log spam, tahnks @Kerbas-ad-astra

@@ -71,15 +71,15 @@ namespace TweakableEverything
 
 		public ModuleTweakableGimbal()
 		{
-			//this.gimbalRange = -1f;
+			this.gimbalRange = -1f;
 			this.reverseGimbalControl = false;
 			this.lowerMult = 0f;
-			this.upperMult = 2f;
+			this.upperMult = 3f;
 			this.disableStockLimiter = true;
-		}
+        }
 
-		// Runs on PartModule startup.
-		public override void OnStart(StartState state)
+        // Runs on PartModule startup.
+        public override void OnStart(StartState state)
 		{
 			// Startup the PartModule stuff first.
 			base.OnStart(state);
@@ -94,6 +94,7 @@ namespace TweakableEverything
 			{
 				return;
 			}
+            
 
             //PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.Modules
             /*.OfType<ModuleGimbal>()
@@ -104,20 +105,32 @@ namespace TweakableEverything
             ModuleGimbal gimbalPrefab;
 			if (PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.tryGetFirstModuleOfType(out gimbalPrefab))
 			{
-				// Initialize the gimbal range tweakable and value.
-				TweakableTools.InitializeTweakable<ModuleTweakableGimbal>(
+                // Initialize the gimbal range tweakable and value.
+#if false
+                	public static void InitializeTweakable<T>(
+			UI_Control floatRange,
+			ref float localField,
+			ref float remoteField,
+			float centerValue,
+			float lowerMult,
+			float upperMult,
+			bool clobberEverywhere = false
+		)
+#endif
+                TweakableTools.InitializeTweakable<ModuleTweakableGimbal>(
 					this.Fields["gimbalRange"].uiControlCurrent(),
 					ref this.gimbalRange,
 					ref this.gimbalModule.gimbalRange,
 					gimbalPrefab.gimbalRange,
 					this.lowerMult,
 					this.upperMult
+                    ,true
 				);
 			}
 #endif
 
-			// If we're in flight mode...
-			if (HighLogic.LoadedSceneIsFlight)
+                // If we're in flight mode...
+                if (HighLogic.LoadedSceneIsFlight)
 			{
 				// ...and if our control state and gimbal range don't match...
 				if (
@@ -168,7 +181,6 @@ namespace TweakableEverything
 
 			// Literally just negate the gimbal range to change control state.
 			this.gimbalModule.gimbalRange = -this.gimbalModule.gimbalRange;
-            Debug.Log("gimbalRange: " + this.gimbalModule.gimbalRange.ToString());
             // Seed this in the persistence file.
             //this.gimbalRange = this.gimbalModule.gimbalRange;
             this.gimbalModule.flipYZ = !this.gimbalModule.flipYZ;
