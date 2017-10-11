@@ -117,10 +117,16 @@ namespace TweakableEverything
 		// Stores the open/closed state of the shield.
 		protected bool lastOpenState;
 
-		/* @subclass
+        /* @subclass
 		private bool yieldedDecouple;*/
 
-		[KSPField(isPersistant = true, guiName = "new Acquire Range", guiUnits = "m", guiFormat = "F2",
+        [KSPField(isPersistant = true, guiName = "Unfocused Range", guiUnits = "m", guiFormat = "F2",
+        guiActiveEditor = true, guiActive = false)]
+        [UI_FloatRange(minValue = 200f, maxValue = 1000, stepIncrement = 1f)]
+        public float unfocusedRange;
+
+
+        [KSPField(isPersistant = true, guiName = "new Acquire Range", guiUnits = "m", guiFormat = "F2",
 			guiActiveEditor = true, guiActive = false)]
 //        [UI_FloatRange(minValue = -1f, maxValue = float.MaxValue, stepIncrement = 1f)]
         [UI_FloatRange(minValue = 0.2f, maxValue = 1f, stepIncrement = .1f)]
@@ -377,10 +383,14 @@ namespace TweakableEverything
 					this.dockingNodeModule.acquireMinRollDot = this.minAcquireRollDotProduct;
 					this.lastMaxAcquireRollAngle = this.maxAcquireRollAngle;
 				}
-			}
+                dockingNodeModule.Events["SetAsTarget"].unfocusedRange = this.unfocusedRange;
+                dockingNodeModule.Events["UnsetAsTarget"].unfocusedRange = this.unfocusedRange;
 
-			// If we are in flight...
-			if (HighLogic.LoadedSceneIsFlight)
+
+            }
+
+            // If we are in flight...
+            if (HighLogic.LoadedSceneIsFlight)
 			{
 				// ...and if we have a deploy animation module and are ready...
 				if (
