@@ -31,6 +31,7 @@ using System;
 using System.Collections.Generic;
 using ToadicusTools.Extensions;
 using UnityEngine;
+using ToadicusTools.TweakableTools;
 
 namespace TweakableEverything
 {

@@ -1,25 +1,30 @@
 {
   "NAME": "TweakableEverything",
-  "URL": "http://ksp-avc.cybutek.net/version.php?id=366",
+  "URL": "https://github.com/linuxgurugamer/TweakableEverything/blob/master/TweakableEverything.version",
+  "DOWNLOAD": "https://github.com/linuxgurugamer/TweakableEverything/releases",
+  "GITHUB": {
+    "USERNAME": "linuxgurugamer",
+    "REPOSITORY": "TweakableEverything"
+  },
   "VERSION": {
     "MAJOR": 0,
     "MINOR": 1,
-    "PATCH": 23,
+    "PATCH": 24,
     "BUILD": 0
   },
   "KSP_VERSION": {
     "MAJOR": 1,
-    "MINOR": 3,
+    "MINOR": 4,
     "PATCH": 1
   },
   "KSP_VERSION_MIN": {
     "MAJOR": 1,
-    "MINOR": 3,
+    "MINOR": 4,
     "PATCH": 1
   },
   "KSP_VERSION_MAX": {
     "MAJOR": 1,
-    "MINOR": 3,
-    "PATCH": 1
+    "MINOR": 4,
+    "PATCH": 99
   }
 }
