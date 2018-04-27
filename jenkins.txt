@@ -27,7 +27,15 @@
 1:TweakableEverything, TweakableEverything.version
 
 # 2:PROJNAME, PROJFILE, VERSIONFILE, PLUGINSFOLDER
-2:TweakableEverything,TweakableEverything/TweakableEverything.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableDeployablePanels,TweakableDeployablePanels/TweakableDeployablePanels.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableDockingNode,TweakableDockingNode/TweakableDockingNode.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableEVA,TweakableEVA/TweakableEVA.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableFuelPumps,TweakableFuelPumps/TweakableFuelPumps.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableGimbals,TweakableGimbals/TweakableGimbals.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableIntakes,TweakableIntakes/TweakableIntakes.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableParachutes,TweakableParachutes/TweakableParachutes.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableReactionWheels,TweakableReactionWheels/TweakableReactionWheels.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
+2:TweakableSAS,TweakableSAS/TweakableSAS.csproj,TweakableEverything.version,GameData/TweakableEverything/Plugins
 
 # 3:SOURCEFILE, DESTDIR
 3:TweakableEverything.version,GameData/TweakableEverything
