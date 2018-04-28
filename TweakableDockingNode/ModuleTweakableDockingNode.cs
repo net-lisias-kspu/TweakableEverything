@@ -41,7 +41,7 @@ namespace TweakableEverything
 		 * Ctor
 		 * Build ALL the objects.
 		 * */
-		public ModuleTweakableDockingNode() //: base()
+		public ModuleTweakableDockingNode() : base()
 		{
 			this.lastOpenState = false;
 			this.AlwaysAllowStack = false;
@@ -157,10 +157,10 @@ namespace TweakableEverything
 		[KSPField(isPersistant = true)]
 		protected bool isDecoupled;
 
-		// protected bool stagingEnabled;
+        // protected bool stagingEnabled;
 
-		// Gets the base part's fuelCrossFeed value.
-		public bool partCrossFeed
+        // Gets the base part's fuelCrossFeed value.
+        public bool partCrossFeed
 		{
 			get
 			{
@@ -180,7 +180,7 @@ namespace TweakableEverything
 		{
 			get
 			{
-				if (this.attachNode == null)
+                if (this.attachNode == null)
 				{
 					return null;
 				}
@@ -189,9 +189,10 @@ namespace TweakableEverything
 			}
 		}
 
-		// Get the open/closed state of the shield.
-		[KSPField(isPersistant = false, guiActiveEditor = true)]
-		protected bool IsOpen
+        // Get the open/closed state of the shield.
+        // commented out following line for 1.4, was causing errors during load
+        //[KSPField(isPersistant = false, guiActiveEditor = true)]
+        protected bool IsOpen
 		{
 			get
 			{
@@ -207,16 +208,20 @@ namespace TweakableEverything
 			}
 		}
 
-		/*
+
+        /*
 		 * Methods
 		 * */
-		// Runs when each new part is started.
-		public override void OnStart(StartState st)
-		{
-			if (!this.part.tryGetFirstModuleOfType<ModuleDockingNode>(out this.dockingNodeModule))
-			{
-				return;
-			}
+        // Runs when each new part is started.
+        public override void OnStart(StartState st)
+        {
+
+            // Startup the PartModule stuff first.
+            base.OnStart(st);
+            if (!this.part.tryGetFirstModuleOfType<ModuleDockingNode>(out this.dockingNodeModule))
+            {
+                return;
+            }
             if (this.dockingNodeModule.deployAnimationController != -1)
             {
                 this.deployAnimation = (base.part.Modules.GetModule(this.dockingNodeModule.deployAnimationController) as ModuleAnimateGeneric);
@@ -224,20 +229,31 @@ namespace TweakableEverything
             else
             {
                 this.deployAnimation = null;
-              //  return;
+                //  return;
             }
 
-          //  this.deployAnimation = this.part.getFirstModuleOfType<ModuleAnimateGeneric>();
+            //  this.deployAnimation = this.part.getFirstModuleOfType<ModuleAnimateGeneric>();
 
-			// If we've loaded a deployAnimationControllerName from the cfg...
+  
+            ModuleDockingNode prefabModule;
 
-			// Start the underlying ModuleDockingNode.
-			base.OnStart(st);
 
-			ModuleDockingNode prefabModule = PartLoader.getPartInfoByName(this.part.partInfo.name)
-				.partPrefab.getFirstModuleOfType<ModuleDockingNode>();
+            var p = PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab;
+    
+            p.tryGetFirstModuleOfType(out prefabModule);
+   
+            if (prefabModule == null)
+            {
+                Debug.Log("prefabModule is null");
+                return;
+            }
+            if (this.Fields["acquireRange"].uiControlCurrent() == null)
+            {
+                Debug.Log("uiControlcurrent is null");
+                return;
+            }
 
-			TweakableTools.InitializeTweakable<ModuleTweakableDockingNode>(
+            TweakableTools.InitializeTweakable<ModuleTweakableDockingNode>(
 				this.Fields["acquireRange"].uiControlCurrent(),
 				ref this.acquireRange,
 				ref this.dockingNodeModule.acquireRange,
@@ -284,10 +300,10 @@ namespace TweakableEverything
 			this.maxAcquireRollAngle = Mathf.Acos(this.minAcquireRollDotProduct) * 180f / Mathf.PI;
 			this.dockingNodeModule.acquireMinRollDot = Mathf.Min(this.minAcquireRollDotProduct, 0.99995f);
 
-			#if DEBUG
+#if DEBUG
 			this.dockingNodeModule.Fields["captureMinRollDot"].guiActive = true;
 			this.dockingNodeModule.Fields["captureMinRollDot"].guiActiveEditor = true;
-			#endif
+#endif
 
 			this.lastMaxCaptureRollAngle = this.maxCaptureRollAngle;
 			this.lastMaxAcquireRollAngle = this.maxAcquireRollAngle;
@@ -298,7 +314,7 @@ namespace TweakableEverything
 				this.attachNode = base.part.FindAttachNode(this.TDNnodeName);
 			}
 
-			base.part.attachRules.allowStack = this.IsOpen | this.AlwaysAllowStack;
+            base.part.attachRules.allowStack = this.IsOpen | this.AlwaysAllowStack;
 
 			/* @subclass
 			ModuleStagingToggle stagingToggleModule;
@@ -335,8 +351,8 @@ namespace TweakableEverything
 				// ...and if we have a deployAnimationModule...
 				if (this.deployAnimation != null)
 				{
-					// If the Opened state of the port has changed since last update and we have an attachNode...
-					if (this.attachNode != null && this.IsOpen != this.lastOpenState)
+                    // If the Opened state of the port has changed since last update and we have an attachNode...
+                    if (this.attachNode != null && this.IsOpen != this.lastOpenState)
 					{
 						// ...set the last state to the current state
 						this.lastOpenState = this.IsOpen;
@@ -361,14 +377,14 @@ namespace TweakableEverything
 					}
 				}
 
-				if (this.maxCaptureRollAngle != this.lastMaxCaptureRollAngle)
+                if (this.maxCaptureRollAngle != this.lastMaxCaptureRollAngle)
 				{
 					this.minCaptureRollDotProduct = Mathf.Cos(this.maxCaptureRollAngle * Mathf.PI / 180f);
 					this.dockingNodeModule.captureMinRollDot = this.minCaptureRollDotProduct;
 					this.lastMaxCaptureRollAngle = this.maxCaptureRollAngle;
 				}
 
-				if (this.maxCaptureRollAngle > this.maxAcquireRollAngle)
+                if (this.maxCaptureRollAngle > this.maxAcquireRollAngle)
 				{
 					this.maxAcquireRollAngle = this.maxCaptureRollAngle;
 				}
@@ -377,15 +393,16 @@ namespace TweakableEverything
                 if (maxCaptureRollAngle == 180)
                     maxCaptureRollAngle = 179.95f;
 
-
+  
                 if (this.maxAcquireRollAngle != this.lastMaxAcquireRollAngle)
 				{
 					this.minAcquireRollDotProduct = Mathf.Cos(this.maxAcquireRollAngle * Mathf.PI / 180f);
 					this.dockingNodeModule.acquireMinRollDot = this.minAcquireRollDotProduct;
 					this.lastMaxAcquireRollAngle = this.maxAcquireRollAngle;
 				}
-                dockingNodeModule.Events["SetAsTarget"].unfocusedRange = this.unfocusedRange;
-                dockingNodeModule.Events["UnsetAsTarget"].unfocusedRange = this.unfocusedRange;
+
+                //dockingNodeModule.Events["SetAsTarget"].unfocusedRange = this.unfocusedRange;
+                //dockingNodeModule.Events["UnsetAsTarget"].unfocusedRange = this.unfocusedRange;
 
 
             }
@@ -393,8 +410,8 @@ namespace TweakableEverything
             // If we are in flight...
             if (HighLogic.LoadedSceneIsFlight)
 			{
-				// ...and if we have a deploy animation module and are ready...
-				if (
+                // ...and if we have a deploy animation module and are ready...
+                if (
 					this.deployAnimation != null &&
 					this.dockingNodeModule.state == "Ready"
 				)
@@ -414,8 +431,7 @@ namespace TweakableEverything
 				}
 			}
 		}
-
-		/*
+        /*
 		 * Chopping out OnActive entirely pending reimplementation as a subclass.
 		public override void OnActive()
 		{
@@ -462,7 +478,7 @@ namespace TweakableEverything
 		}
 		*/
 
-		[KSPAction("Control from Here")]
+        [KSPAction("Control from Here")]
 		public void MakeReferenceTransformAction(KSPActionParam param)
 		{
 			if (this.dockingNodeModule.Events["MakeReferenceTransform"].active)
@@ -471,12 +487,13 @@ namespace TweakableEverything
 			}
 		}
 
-		/*
+
+        /*
 		 * @subclass -- Chopping this out pending rewrite; should happen with Stock's logic.
 		protected void OnStagingToggle(object sender, ModuleStagingToggle.BoolArg arg)
 		{
 			this.LogDebug("OnStagingToggle called.");
 			this.stagingEnabled = arg.Value;
 		}*/
-	}
+    }
 }

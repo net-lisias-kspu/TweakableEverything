@@ -82,8 +82,8 @@ namespace TweakableEverything
         // Runs on PartModule startup.
         public override void OnStart(StartState state)
 		{
-			// Startup the PartModule stuff first.
-			base.OnStart(state);
+            // Startup the PartModule stuff first.
+            base.OnStart(state);
 
 			// Set our state trackers to the opposite of our states, to force first-run updates.
 //			this.startLockedState = !this.startLocked;
@@ -95,12 +95,13 @@ namespace TweakableEverything
 			{
 				return;
 			}
-            
+
 
             //PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.Modules
             /*.OfType<ModuleGimbal>()
             .FirstOrDefault()
             .gimbalRange*/
+
 
 #if true
             ModuleGimbal gimbalPrefab;

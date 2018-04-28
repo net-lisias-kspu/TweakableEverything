@@ -112,8 +112,6 @@ set textTemplatingPath="%25ProgramFiles(x86)%25\Microsoft Visual Studio\2017\Com
 start /D D:\Users\jbb\github\Toadicus\TweakableEverything /WAIT deploy.bat  $(TargetDir) $(TargetFileName)
 
 
-if $(ConfigurationName) == Release_win (
-	start /D D:\Users\jbb\github\Toadicus\TweakableEverything /WAIT buildRelease.bat $(TargetDir) $(TargetFileName)
-)</PostBuildEvent>
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
