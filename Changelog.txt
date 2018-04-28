@@ -27,3 +27,6 @@
     Added ToadicusTools as a reference
     Added a needed "using" statement to those files which needed the
     TweakableTools from ToadicusTools
+
+0.1.24.1
+	Fixed nullref from TweakableDockingNode during startup causing very long starts

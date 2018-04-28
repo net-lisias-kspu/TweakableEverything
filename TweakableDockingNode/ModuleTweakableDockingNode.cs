@@ -41,7 +41,7 @@ namespace TweakableEverything
 		 * Ctor
 		 * Build ALL the objects.
 		 * */
-		public ModuleTweakableDockingNode() : base()
+		public ModuleTweakableDockingNode() //: base()
 		{
 			this.lastOpenState = false;
 			this.AlwaysAllowStack = false;
