@@ -1,4 +1,9 @@
 # Tweakable Everything :: Change Log
 
+* 2016-0421: 1.15 (toadicus) for KSP 1.1
+	+ KSP 1.1 Compatibility
+	+ Retired TweakableControlSurfaces: it's stock now.
+	+ Retired TweakableDecouplers: it's stock now.
+	+ Retired TweakableRCS: it's stock now.
 * 2016-0227: 1.14 (toadicus) for KSP 1.0.5
 	+ No changelog provided
