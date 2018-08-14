@@ -1,5 +1,6 @@
 .vs
 Archive
+GameData/**/Plugins/*.dll
 Source/**/Properties/Version.cs
 Source/**/obj
 bin
