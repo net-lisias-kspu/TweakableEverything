@@ -1,5 +1,7 @@
 # Tweakable Everything :: Change Log
 
+* 2016-1218: 0.1.17.2 (linuxgurugamer) for KSP 1.2.2
+	+ Removed unnecessary .version file in wrong directory
 * 2016-1218: 0.1.17.1 (linuxgurugamer) for KSP 1.2.2
 	+ recompiled for 1.2.2
 * 2016-1113: 0.1.17 (linuxgurugamer) for KSP 1.2.2
