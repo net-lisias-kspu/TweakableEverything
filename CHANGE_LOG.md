@@ -1,5 +1,7 @@
 # Tweakable Everything :: Change Log
 
+* 2017-1011: 0.1.23 (linuxgurugamer) for KSP 1.3.1
+	+ Updated for KSP 1.3.1
 * 2017-0702: 0.1.21 (linuxgurugamer) for KSP 1.3.0
 	+ Added docking ports from the Mk3 Expansion by SuicidalInsanity
 	+ Added docking trunk from the Mk2.5 Spaceplane Parts
