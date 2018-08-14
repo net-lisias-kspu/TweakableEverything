@@ -1,5 +1,11 @@
 # Tweakable Everything :: Change Log
 
+* 2018-0427: 0.1.24 (linuxgurugamer) for KSP 1.4.2
+	+ Updated for 1.4
+	+ Fixed MM config files (removed the FOR clauses)
+		- Added ToadicusTools as a reference
+		- Added a needed "using" statement to those files which needed the
+		- TweakableTools from ToadicusTools
 * 2017-1011: 0.1.23 (linuxgurugamer) for KSP 1.3.1
 	+ Updated for KSP 1.3.1
 * 2017-0702: 0.1.21 (linuxgurugamer) for KSP 1.3.0
