@@ -1,5 +1,8 @@
 # Tweakable Everything :: Change Log
 
+* 2017-0322: 0.1.19 (linuxgurugamer) for KSP 1.2.2
+	+ Fixed TweakableDockingNode shield code to only activate on shielded ports, not all ports with animation
+	+ Added OPT docking ports
 * 2016-1221: 0.1.18 (linuxgurugamer) for KSP 1.2.2
 	+ Added minim value to Docking Node acquision range
 	+ Increased rotation angle to 179.95
