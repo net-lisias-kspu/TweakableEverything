@@ -1,5 +1,7 @@
 # Tweakable Everything :: Change Log
 
+* 2018-0428: 0.1.24.1 (linuxgurugamer) for KSP 1.4.2
+	+ Fixed nullref from TweakableDockingNode during startup causing very long starts
 * 2018-0427: 0.1.24 (linuxgurugamer) for KSP 1.4.2
 	+ Updated for 1.4
 	+ Fixed MM config files (removed the FOR clauses)
