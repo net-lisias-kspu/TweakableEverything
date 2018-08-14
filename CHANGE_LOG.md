@@ -1,5 +1,7 @@
 # Tweakable Everything :: Change Log
 
+* 2017-0324: 0.1.19.1 (linuxgurugamer) for KSP 1.2.2
+	+ Re-enabled the Tweakable Gimbal
 * 2017-0322: 0.1.19 (linuxgurugamer) for KSP 1.2.2
 	+ Fixed TweakableDockingNode shield code to only activate on shielded ports, not all ports with animation
 	+ Added OPT docking ports
