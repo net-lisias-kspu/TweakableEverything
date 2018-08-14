@@ -1,5 +1,7 @@
 # Tweakable Everything :: Change Log
 
+* 2016-1113: 0.1.17 (linuxgurugamer) for KSP 1.2.2
+	+ No changelog provided
 * 2016-1019: 0.1.16.2-beta (linuxgurugamer) for KSP 1.0.5
 	+ No changelog provided
 * 2016-1019: 0.1.16.1-beta (linuxgurugamer) for KSP 1.0.5 PRE-RELEASE
