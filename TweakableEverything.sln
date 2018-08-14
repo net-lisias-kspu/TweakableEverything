@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDockingNode", "TweakableDockingNode\TweakableDockingNode.csproj", "{EBEA2280-E6EC-4B61-8A0E-A9909AAC9206}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDockingNode", "Source/TweakableDockingNode\TweakableDockingNode.csproj", "{EBEA2280-E6EC-4B61-8A0E-A9909AAC9206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDeployablePanels", "TweakableDeployablePanels\TweakableDeployablePanels.csproj", "{047D6609-21D0-4DD0-A8A0-37BB9D270100}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDeployablePanels", "Source/TweakableDeployablePanels\TweakableDeployablePanels.csproj", "{047D6609-21D0-4DD0-A8A0-37BB9D270100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableReactionWheels", "TweakableReactionWheels\TweakableReactionWheels.csproj", "{E5B0D4C8-F539-4825-8823-D9E37716ACEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableReactionWheels", "Source/TweakableReactionWheels\TweakableReactionWheels.csproj", "{E5B0D4C8-F539-4825-8823-D9E37716ACEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableGimbals", "TweakableGimbals\TweakableGimbals.csproj", "{A9127548-5542-47FC-B6C2-7129E6573E51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableGimbals", "Source/TweakableGimbals\TweakableGimbals.csproj", "{A9127548-5542-47FC-B6C2-7129E6573E51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableEVA", "TweakableEVA\TweakableEVA.csproj", "{A8B2B965-ABA5-4ADE-9F8F-F24792D281D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableEVA", "Source/TweakableEVA\TweakableEVA.csproj", "{A8B2B965-ABA5-4ADE-9F8F-F24792D281D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableIntakes", "TweakableIntakes\TweakableIntakes.csproj", "{42F2AF4D-3432-47C3-83A4-AAF1E0CD8169}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableIntakes", "Source/TweakableIntakes\TweakableIntakes.csproj", "{42F2AF4D-3432-47C3-83A4-AAF1E0CD8169}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableParachutes", "TweakableParachutes\TweakableParachutes.csproj", "{22DD291E-E4BF-4759-BD6D-4EA736B937C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableParachutes", "Source/TweakableParachutes\TweakableParachutes.csproj", "{22DD291E-E4BF-4759-BD6D-4EA736B937C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableSAS", "TweakableSAS\TweakableSAS.csproj", "{1E0E19C1-10C5-4EB2-AD41-5A27E9A31C24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableSAS", "Source/TweakableSAS\TweakableSAS.csproj", "{1E0E19C1-10C5-4EB2-AD41-5A27E9A31C24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableFuelPumps", "TweakableFuelPumps\TweakableFuelPumps.csproj", "{AD1165CC-1868-453F-B816-909D1B557141}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableFuelPumps", "Source/TweakableFuelPumps\TweakableFuelPumps.csproj", "{AD1165CC-1868-453F-B816-909D1B557141}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E024A9F-1FCF-4781-9B5D-3D11A0CE80CE}"
 	ProjectSection(SolutionItems) = preProject
@@ -32,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TweakableEverything.version = TweakableEverything.version
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllProjects", "AllProjects\AllProjects.csproj", "{7831DDE3-378F-4BF4-A3C4-0A5CE0234571}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllProjects", "Source/AllProjects\AllProjects.csproj", "{7831DDE3-378F-4BF4-A3C4-0A5CE0234571}"
 	ProjectSection(ProjectDependencies) = postProject
 		{047D6609-21D0-4DD0-A8A0-37BB9D270100} = {047D6609-21D0-4DD0-A8A0-37BB9D270100}
 		{22DD291E-E4BF-4759-BD6D-4EA736B937C4} = {22DD291E-E4BF-4759-BD6D-4EA736B937C4}
