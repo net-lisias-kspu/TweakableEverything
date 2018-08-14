@@ -43,3 +43,5 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
+[assembly: AssemblyFileVersion(TweakableEverything.Version.Number)]
+[assembly: AssemblyVersion(TweakableEverything.Version.Number)]

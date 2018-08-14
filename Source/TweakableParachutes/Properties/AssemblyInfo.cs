@@ -39,4 +39,5 @@ using System.Runtime.CompilerServices;
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-//[assembly: AssemblyVersion("1.15.0.*")]
+[assembly: AssemblyFileVersion(TweakableEverything.Version.Number)]
+[assembly: AssemblyVersion(TweakableEverything.Version.Number)]
