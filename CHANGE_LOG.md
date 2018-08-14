@@ -1,5 +1,7 @@
 # Tweakable Everything :: Change Log
 
+* 2017-0529: 0.1.20 (linuxgurugamer) for KSP 1.3.0
+	+ Updated for 1.3
 * 2017-0504: 0.1.19.2 (linuxgurugamer) for KSP 1.2.2
 	+ Fixed Tweakable Gimbal to not be disabled at start (with a range of 0)
 	+ Fixed some log spam, thanks @Kerbas-ad-astra
