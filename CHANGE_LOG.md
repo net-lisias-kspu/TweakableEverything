@@ -1,5 +1,8 @@
 # Tweakable Everything :: Change Log
 
+* 2016-1221: 0.1.18 (linuxgurugamer) for KSP 1.2.2
+	+ Added minim value to Docking Node acquision range
+	+ Increased rotation angle to 179.95
 * 2016-1218: 0.1.17.2 (linuxgurugamer) for KSP 1.2.2
 	+ Removed unnecessary .version file in wrong directory
 * 2016-1218: 0.1.17.1 (linuxgurugamer) for KSP 1.2.2
