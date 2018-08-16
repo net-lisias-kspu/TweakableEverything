@@ -29,8 +29,8 @@
 using KSP;
 using System;
 using System.Collections.Generic;
-using ToadicusTools.Extensions;
 using UnityEngine;
+using ToadicusTools.Extensions;
 using ToadicusTools.TweakableTools;
 
 namespace TweakableEverything

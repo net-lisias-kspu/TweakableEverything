@@ -30,6 +30,7 @@ using KSP;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using KSPe.IO;
 using ToadicusTools.Extensions;
 
 namespace TweakableEverything
@@ -55,7 +56,7 @@ namespace TweakableEverything
 		public virtual void Awake()
 		{
 			this.Log("Waking up.");
-			var config = KSP.IO.PluginConfiguration.CreateForType<TDNProtoUpdater>(null);
+			PluginConfiguration config = PluginConfiguration.CreateForType<ModuleTweakableDockingNode>();
 
 			config.load();
 			string AffectedPartsString = config.GetValue<string>("AffectedParts", string.Empty);
@@ -199,7 +200,7 @@ namespace TweakableEverything
 		// When we're done, save the list of affected parts to the xml file.
 		public virtual void OnDestroy()
 		{
-			var config = KSP.IO.PluginConfiguration.CreateForType<TDNProtoUpdater>(null);
+			var config = PluginConfiguration.CreateForType<ModuleTweakableDockingNode>(null);
 
 			config.load();
 			string AffectedPartsString = string.Join(", ", this.AffectedParts);

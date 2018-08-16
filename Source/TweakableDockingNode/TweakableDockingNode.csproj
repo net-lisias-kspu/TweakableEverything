@@ -59,9 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="ToadicusTools">
-      <HintPath>..\..\..\..\..\LIB\plugins\ToadicusTools.dll</HintPath>
-    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\LIB\managed\1.4.1\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -73,6 +70,12 @@
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\..\LIB\managed\1.4.1\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="KSPe">
+      <HintPath>..\..\..\..\..\LIB\plugins\KSPe.dll</HintPath>
+    </Reference>
+    <Reference Include="ToadicusTools">
+      <HintPath>..\..\..\..\..\LIB\plugins\ToadicusTools.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup>
