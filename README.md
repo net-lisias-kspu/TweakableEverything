@@ -49,6 +49,7 @@ BSD 3-Clause. See [here](./LICENSE).
 ## Dependencies
 
 * [ModuleManager](https://github.com/sarbian/ModuleManager)
+* [KSP API Extensions/L](https://github.com/net-lisias-ksp/KSPAPIExtensions)
 * [ToadicusTools](https://github.com/net-lisias-kspu/ToadicusTools)
 
 
