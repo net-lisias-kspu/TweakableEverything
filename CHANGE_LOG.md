@@ -1,8 +1,9 @@
 # Tweakable Everything :: Change Log
 
-* 2018-0816: 0.1.24.2 (lisias) for KSP 1.4.x
+* 2018-0816: 0.1.24.3 (lisias) for KSP 1.4.x
+	+ Saving xml config files under <KSP_ROOT>/PluginData Hierarchy
+		- Added hard dependency for [KSP API Extensions/L](https://github.com/net-lisias-ksp/KSPAPIExtensions). 
 	+ Repackaging and redirecting to Unofficial Repositories.
-		- Nothing really changed, except cleaning and normalizing  
 * 2018-0428: 0.1.24.2 (linuxgurugamer) for KSP 1.4.2
 	+ Fixed nullrefs during startup
 	+ Fixed nullrefs when in Editor
