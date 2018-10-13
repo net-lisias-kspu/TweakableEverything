@@ -8,5 +8,5 @@ GameData/**/README.md
 GameData/**/CHANGE_LOG.md
 GameData/**/CHANGES.md
 GameData/**/*.version
-Source/*/Properties/Version.cs
+Source/Version.cs
 Source/*/*.user
