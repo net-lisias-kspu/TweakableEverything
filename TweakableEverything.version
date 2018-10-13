@@ -1,14 +1,14 @@
 {
-	"NAME":		"TweakableEverything Unofficial",
-	"URL":		"https://github.com/net-lisias-kspu/TweakableEverything/blob/master/TweakableEverything.version",
-	"DOWNLOAD":	"https://github.com/net-lisias-kspu/TweakableEverything/releases",
-	"CHANGE_LOG":	"https://raw.githubusercontent.com/net-lisias-kspu/TweakableEverything/CHANGE_LOG.md",
-	"CHANGE_LOG_URL":"https://raw.githubusercontent.com/net-lisias-kspu/TweakableEverything/CHANGES.md",
 	"GITHUB":{
 		"USERNAME":"net-lisias-kspu",
 		"REPOSITORY":"TweakableEverything",
 		"ALLOW_PRE_RELEASE":false
 		},
+	"NAME"		: "TweakableEverything Unofficial",
+	"URL"		: "https://github.com/net-lisias-kspu/TweakableEverything/blob/master/TweakableEverything.version",
+	"DOWNLOAD"	: "https://github.com/net-lisias-kspu/TweakableEverything/releases",
+	"CHANGE_LOG"	: "https://raw.githubusercontent.com/net-lisias-kspu/TweakableEverything/CHANGE_LOG.md",
+	"CHANGE_LOG_URL": "https://raw.githubusercontent.com/net-lisias-kspu/TweakableEverything/CHANGES.md",
 	"VERSION":{
 		"MAJOR":0,
 		"MINOR":1,
