@@ -8,8 +8,8 @@ A KSP mod that players "tweak" standard part values within the game.. Unofficial
 Continuation of the Take Command - unofficial fork by Lisias.
 
 * [Latest Release](https://github.com/net-lisias-kspu/TweakableEverything/releases)
+	+ [Binaries](https://github.com/net-lisias-kspu/TweakableEverything/tree/Archive)
 * [Source](https://github.com/net-lisias-kspu/TweakableEverything)
-* [Binaries](https://github.com/net-lisias-kspu/TweakableEverything/tree/Archive)
 * [Change Log](./CHANGE_LOG.md)
 
 
