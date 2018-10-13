@@ -10,29 +10,25 @@ check() {
 }
 
 deploy_dev() {
-	local DLL=$1.dll
+	local DLL=$1
 
-	if [ -f "./bin/Release/$DLL" ] ; then
-		cp "./bin/Release/$DLL" "$LIB"
+	if [ -f "./bin/Release/$DLL.dll" ] ; then
+		cp "./bin/Release/$DLL.dll" "$LIB"
 	fi
 }
 
 deploy() {
-	local DLL=$1.dll
+	local DLL=$1
 
-	if [ -f "./bin/Release/$DLL" ] ; then
-		cp "./bin/Release/$DLL" "./GameData/$TARGETBINDIR/"
+	if [ -f "./bin/Release/$DLL.dll" ] ; then
+		cp "./bin/Release/$DLL.dll" "./GameData/$TARGETBINDIR/"
 		if [ -d "${KSP_DEV}/GameData/$TARGETBINDIR/" ] ; then
-			cp "./bin/Release/$DLL" "${KSP_DEV/}GameData/$TARGETBINDIR/"
+			cp "./bin/Release/$DLL.dll" "${KSP_DEV/}GameData/$TARGETBINDIR/"
 		fi
 	fi
-	if [ -f "./bin/Debug/$DLL" ] ; then
+	if [ -f "./bin/Debug/$DLL.dll" ] ; then
 		if [ -d "${KSP_DEV}/GameData/$TARGETBINDIR/" ] ; then
-			cp "./bin/Debug/$DLL" "${KSP_DEV}GameData/$TARGETBINDIR/"
-		fi
-	fi
-}
-
+			cp "./bin/Debug/$DLL.dll" "${KSP_DEV}GameData/$TARGETBINDIR/"
 		fi
 	fi
 }
@@ -45,8 +41,7 @@ cp CHANGE_LOG.md "./GameData/$TARGETDIR"
 cp README.md  "./GameData/$TARGETDIR"
 cp *LICENSE "./GameData/$TARGETDIR"
 cp NOTICE "./GameData/$TARGETDIR"
-
 for dll in TweakableDeployablePanels TweakableDockingNode TweakableEVA TweakableFuelPumps TweakableGimbals TweakableIntakes TweakableParachutes TweakableReactionWheels TweakableSAS ; do
-    deploy_dev $dll
     deploy $dll
+    deploy_dev $dll
 done
