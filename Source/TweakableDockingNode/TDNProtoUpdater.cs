@@ -30,7 +30,7 @@ using KSP;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using KSPe.IO;
+using KSPe.IO.Data;
 using ToadicusTools.Extensions;
 
 namespace TweakableEverything
@@ -200,7 +200,7 @@ namespace TweakableEverything
 		// When we're done, save the list of affected parts to the xml file.
 		public virtual void OnDestroy()
 		{
-			var config = PluginConfiguration.CreateForType<ModuleTweakableDockingNode>(null);
+			var config = PluginConfiguration.CreateForType<ModuleTweakableDockingNode>();
 
 			config.load();
 			string AffectedPartsString = string.Join(", ", this.AffectedParts);
