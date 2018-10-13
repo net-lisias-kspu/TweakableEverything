@@ -7,6 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A9127548-5542-47FC-B6C2-7129E6573E51}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <BaseIntermediateOutputPath>..\..\obj</BaseIntermediateOutputPath>
     <RootNamespace>TweakableGimbals</RootNamespace>
     <ReleaseVersion>1.2</ReleaseVersion>
     <AssemblyName>TweakableGimbals</AssemblyName>
@@ -51,16 +52,12 @@
   <ItemGroup>
     <Compile Include="ModuleTweakableGimbal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Version.cs">
-      <DependentUpon>Version.tt</DependentUpon>
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\GameData\TweakableEverything\TweakableGimbals.cfg" />
-    <None Include="Properties\Version.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Version.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

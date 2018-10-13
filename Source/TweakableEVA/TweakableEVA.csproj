@@ -7,6 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A8B2B965-ABA5-4ADE-9F8F-F24792D281D0}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <BaseIntermediateOutputPath>..\..\obj</BaseIntermediateOutputPath>
     <RootNamespace>TweakableEVA</RootNamespace>
     <AssemblyName>TweakableEVA</AssemblyName>
     <ReleaseVersion>1.2</ReleaseVersion>
@@ -50,16 +51,12 @@
   <ItemGroup>
     <Compile Include="ModuleTweakableEVA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Version.cs">
-      <DependentUpon>Version.tt</DependentUpon>
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\GameData\TweakableEverything\TweakableEVA.cfg" />
-    <None Include="Properties\Version.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Version.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

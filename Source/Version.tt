@@ -27,7 +27,7 @@
 	int i2 = 0;
 	string s;
 
-	string versionfile =  this.Host.ResolvePath("../../weakableEverything.version");
+	string versionfile =  this.Host.ResolvePath("../TweakableEverything.version");
 	if (!File.Exists(versionfile))
 	{
 		Write("File: " + versionfile + " missing\n");		
