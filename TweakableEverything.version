@@ -1,9 +1,4 @@
 {
-	"GITHUB":{
-		"USERNAME":"net-lisias-kspu",
-		"REPOSITORY":"TweakableEverything",
-		"ALLOW_PRE_RELEASE":false
-		},
 	"NAME"		: "TweakableEverything Unofficial",
 	"URL"		: "https://github.com/net-lisias-kspu/TweakableEverything/blob/master/TweakableEverything.version",
 	"DOWNLOAD"	: "https://github.com/net-lisias-kspu/TweakableEverything/releases",
@@ -17,8 +12,7 @@
 		},
 	"KSP_VERSION":{
 		"MAJOR":1,
-		"MINOR":4,
-		"PATCH":1
+		"MINOR":4
 		},
 	"KSP_VERSION_MIN":{
 		"MAJOR":1,
