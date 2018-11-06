@@ -36,3 +36,7 @@
 	Fixed nullrefs when in Editor
 	Due to changes in the DockingModule, the ability to set the unfocused range was removed
 	Added AllProjects to do release build
+
+0.1.25
+	Added missing eva kerbal to MM config (vintage)
+	Updated for 1.5Version bump for 1.5 rebuild
