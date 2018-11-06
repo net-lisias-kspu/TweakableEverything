@@ -40,3 +40,6 @@
 0.1.25
 	Added missing eva kerbal to MM config (vintage)
 	Updated for 1.5Version bump for 1.5 rebuild
+
+0.1.25.1
+	Fixed typo in kerbaleva.cfg
