@@ -85,9 +85,9 @@
       <HintPath>R:\KSP_1.5.1_dev\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="ToadicusTools, Version=0.22.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ToadicusTools, Version=0.22.3.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>R:\KSP_1.4.1_dev\GameData\ToadicusTools\Plugins\ToadicusTools.dll</HintPath>
+      <HintPath>R:\KSP_1.5.1_dev\GameData\ToadicusTools\Plugins\ToadicusTools.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
       <HintPath>R:\KSP_1.5.1_dev\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
