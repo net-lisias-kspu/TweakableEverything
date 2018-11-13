@@ -1,6 +1,6 @@
 {
   "NAME": "TweakableEverything",
-  "URL": "http://ksp.spacetux.net/avcTweakableEverything",
+  "URL": "http://ksp.spacetux.net/avc/TweakableEverything",
   "DOWNLOAD": "https://github.com/linuxgurugamer/TweakableEverything/releases",
   "GITHUB": {
     "USERNAME": "linuxgurugamer",
@@ -10,7 +10,7 @@
     "MAJOR": 0,
     "MINOR": 1,
     "PATCH": 25,
-    "BUILD": 1
+    "BUILD": 2
   },
   "KSP_VERSION": {
     "MAJOR": 1,

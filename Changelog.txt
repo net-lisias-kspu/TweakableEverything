@@ -43,3 +43,6 @@
 
 0.1.25.1
 	Fixed typo in kerbaleva.cfg
+
+0.1.25.2
+	Fixed typo in .version file
