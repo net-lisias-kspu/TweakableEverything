@@ -46,3 +46,6 @@
 
 0.1.25.2
 	Fixed typo in .version file
+
+0.1.26
+	Fixed bug in TweakableDockingDode which was preventing  the docking ports from working
