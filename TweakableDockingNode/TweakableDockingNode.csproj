@@ -9,13 +9,14 @@
     <OutputType>Library</OutputType>
     <RootNamespace>TweakableDockingNode</RootNamespace>
     <AssemblyName>TweakableDockingNode</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <ReleaseVersion>1.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug_win|AnyCPU' ">
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
     <DebugSymbols>true</DebugSymbols>
     <DefineConstants>DEBUG; TRACE; USE_KSPAPIEXTENSIONS</DefineConstants>
     <CustomCommands>
@@ -28,6 +29,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="xcopy /Y ${TargetFile} ${SolutionDir}\GameData\TweakableEverything\" />
@@ -39,6 +41,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp -afv ${TargetFile} ${SolutionDir}/GameData/${SolutionName}/" />
@@ -52,6 +55,7 @@
     <OutputPath>bin\Debug</OutputPath>
     <DefineConstants>DEBUG; TRACE; USE_KSPAPIEXTENSIONS</DefineConstants>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="cp -afv ${TargetFile} ${SolutionDir}/GameData/${SolutionName}/" />
@@ -60,6 +64,7 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="InstallChecker.cs" />
     <Compile Include="ModuleTweakableDockingNode.cs" />
     <Compile Include="TDNProtoUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,22 +87,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>R:\KSP_1.5.1_dev\KSP_x64_Data\Managed\Assembly-CSharp.dll</HintPath>
+    <Reference Include="$(KSPDIR)\KSP_x64_Data\Managed\Assembly*.dll">
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>R:\KSP_1.5.1_dev\KSP_x64_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    <Reference Include="$(KSPDIR)\KSP_x64_Data\Managed\UnityEngine*.dll">
+      <Private>False</Private>
     </Reference>
+    <Reference Include="System" />
     <Reference Include="System" />
     <Reference Include="ToadicusTools, Version=0.22.3.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>R:\KSP_1.5.1_dev\GameData\ToadicusTools\Plugins\ToadicusTools.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>R:\KSP_1.5.1_dev\KSP_x64_Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>R:\KSP_1.5.1_dev\KSP_x64_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(KSPDIR)\GameData\ToadicusTools\Plugins\ToadicusTools.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup>
