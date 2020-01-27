@@ -43,3 +43,15 @@
 
 0.1.25.1
 	Fixed typo in kerbaleva.cfg
+
+0.1.25.2
+	Fixed typo in .version file
+
+0.1.26
+	Fixed bug in TweakableDockingDode which was preventing  the docking ports from working
+
+0.2.0
+	Updated for KSP 1.8
+	Removed range from TweakableGimble since it's now in stock
+	Removed TweakableIntakes, since it's also in stock
+	Added InstallChecker to all dlls

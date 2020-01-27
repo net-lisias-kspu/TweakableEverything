@@ -158,7 +158,6 @@ namespace TweakableEverything
 		protected bool isDecoupled;
 
         // protected bool stagingEnabled;
-
         // Gets the base part's fuelCrossFeed value.
         public bool partCrossFeed
 		{
@@ -172,11 +171,11 @@ namespace TweakableEverything
 			}
 		}
 
-		/*
+        /*
 		 * Properties
 		 * */
-		// Get the part attached on the docking end of things.
-		protected Part attachedPart
+        // Get the part attached on the docking end of things.
+        protected Part attachedPart
 		{
 			get
 			{
@@ -218,6 +217,7 @@ namespace TweakableEverything
 
             // Startup the PartModule stuff first.
             base.OnStart(st);
+
             if (!this.part.tryGetFirstModuleOfType<ModuleDockingNode>(out this.dockingNodeModule))
             {
                 return;
@@ -253,6 +253,7 @@ namespace TweakableEverything
                 return;
             }
 
+#if true
             TweakableTools.InitializeTweakable<ModuleTweakableDockingNode>(
 				this.Fields["acquireRange"].uiControlCurrent(),
 				ref this.acquireRange,
@@ -290,32 +291,48 @@ namespace TweakableEverything
 				ref this.dockingNodeModule.minDistanceToReEngage,
 				prefabModule.minDistanceToReEngage
 			);
-
-			this.Fields["maxCaptureRollAngle"].uiControlFlight.controlEnabled = false;
+#endif
+#if true
+            this.Fields["maxCaptureRollAngle"].uiControlFlight.controlEnabled = false;
 			this.Fields["maxAcquireRollAngle"].uiControlFlight.controlEnabled = false;
 
 			this.maxCaptureRollAngle = Mathf.Acos(this.minCaptureRollDotProduct) * 180f / Mathf.PI;
-			this.dockingNodeModule.captureMinRollDot = Mathf.Min(this.minCaptureRollDotProduct, 0.99995f);
+//			this.dockingNodeModule.captureMinRollDot = Mathf.Min(this.minCaptureRollDotProduct, 0.99995f);
 
 			this.maxAcquireRollAngle = Mathf.Acos(this.minAcquireRollDotProduct) * 180f / Mathf.PI;
-			this.dockingNodeModule.acquireMinRollDot = Mathf.Min(this.minAcquireRollDotProduct, 0.99995f);
+            //			this.dockingNodeModule.acquireMinRollDot = Mathf.Min(this.minAcquireRollDotProduct, 0.99995f);
 
 #if DEBUG
-			this.dockingNodeModule.Fields["captureMinRollDot"].guiActive = true;
-			this.dockingNodeModule.Fields["captureMinRollDot"].guiActiveEditor = true;
+            this.dockingNodeModule.Fields["acquireMinRollDot"].guiActive = true;
+            this.dockingNodeModule.Fields["acquireMinRollDot"].guiActiveEditor = true;
+
+            this.dockingNodeModule.Fields["captureMinRollDot"].guiActive = true;
+            this.dockingNodeModule.Fields["captureMinRollDot"].guiActiveEditor = true;
+
+            this.Fields["maxCaptureRollAngle"].guiActive = true;
+            this.Fields["maxCaptureRollAngle"].guiActiveEditor = true;
+
+            this.Fields["maxAcquireRollAngle"].guiActive = true;
+            this.Fields["maxAcquireRollAngle"].guiActiveEditor = true;
+
+            this.Fields["minCaptureRollDotProduct"].guiActive = true;
+            this.Fields["minCaptureRollDotProduct"].guiActiveEditor = true;
+
+            this.Fields["minAcquireRollDotProduct"].guiActive = true;
+            this.Fields["minAcquireRollDotProduct"].guiActiveEditor = true;
 #endif
 
-			this.lastMaxCaptureRollAngle = this.maxCaptureRollAngle;
+            this.lastMaxCaptureRollAngle = this.maxCaptureRollAngle;
 			this.lastMaxAcquireRollAngle = this.maxAcquireRollAngle;
-
-			// If we have a tweakable AttachNode, use it.
-			if (this.TDNnodeName != string.Empty)
+#if true
+            // If we have a tweakable AttachNode, use it.
+            if (this.TDNnodeName != string.Empty)
 			{
 				this.attachNode = base.part.FindAttachNode(this.TDNnodeName);
 			}
 
             base.part.attachRules.allowStack = this.IsOpen | this.AlwaysAllowStack;
-
+#endif
 			/* @subclass
 			ModuleStagingToggle stagingToggleModule;
 
@@ -324,7 +341,7 @@ namespace TweakableEverything
 				stagingToggleModule.OnToggle += new ModuleStagingToggle.ToggleEventHandler(this.OnStagingToggle);
 			}
 			*/
-
+#endif
 			// Yay debugging!
 			this.LogDebug(
 				"{0}: Started with assembly version {4}." +
@@ -340,10 +357,11 @@ namespace TweakableEverything
             );
 		}
 
-		// Runs every LateUpdate, because that's how Unity rolls.
-		// We're running at LateUpdate to avoid hiding Update, since ModuleDockingNode's Update is private and we
-		// can't call it.
-		public void FixedUpdate()
+        // Runs every LateUpdate, because that's how Unity rolls.
+        // We're running at LateUpdate to avoid hiding Update, since ModuleDockingNode's Update is private and we
+        // can't call it.
+#if true
+        public void FixedUpdate()
 		{
 			// If we're in the Editor...
 			if (HighLogic.LoadedSceneIsEditor)
@@ -380,7 +398,9 @@ namespace TweakableEverything
                 if (this.maxCaptureRollAngle != this.lastMaxCaptureRollAngle)
 				{
 					this.minCaptureRollDotProduct = Mathf.Cos(this.maxCaptureRollAngle * Mathf.PI / 180f);
-					this.dockingNodeModule.captureMinRollDot = this.minCaptureRollDotProduct;
+#if false
+                    this.dockingNodeModule.captureMinRollDot = this.minCaptureRollDotProduct;
+#endif
 					this.lastMaxCaptureRollAngle = this.maxCaptureRollAngle;
 				}
 
@@ -431,53 +451,55 @@ namespace TweakableEverything
 				}
 			}
 		}
-        /*
-		 * Chopping out OnActive entirely pending reimplementation as a subclass.
-		public override void OnActive()
-		{
-			yieldedDecouple = false;
+#endif
+                    /*
+                     * Chopping out OnActive entirely pending reimplementation as a subclass.
+                    public override void OnActive()
+                    {
+                        yieldedDecouple = false;
 
-			this.LogDebug("this.attachedPart={0}", this.attachedPart == null ? "null" : this.attachedPart.partInfo.title);
+                        this.LogDebug("this.attachedPart={0}", this.attachedPart == null ? "null" : this.attachedPart.partInfo.title);
 
-			ModuleTweakableDockingNode attachedNode;
-			if (
-				this.attachedPart != null &&
-				PartIsStagingDockingPort(this.attachedPart, out attachedNode)
-			)
-			{
-				this.LogDebug("Attached part is staging docking port");
+                        ModuleTweakableDockingNode attachedNode;
+                        if (
+                            this.attachedPart != null &&
+                            PartIsStagingDockingPort(this.attachedPart, out attachedNode)
+                        )
+                        {
+                            this.LogDebug("Attached part is staging docking port");
 
-				if (!attachedNode.yieldedDecouple)
-				{
-					this.LogDebug("Attached part has not yielded, yielding and returning.");
-					this.yieldedDecouple = true;
-					return;
-				}
-			}
+                            if (!attachedNode.yieldedDecouple)
+                            {
+                                this.LogDebug("Attached part has not yielded, yielding and returning.");
+                                this.yieldedDecouple = true;
+                                return;
+                            }
+                        }
 
-			this.LogDebug("OnActive");
+                        this.LogDebug("OnActive");
 
-			base.OnActive();
+                        base.OnActive();
 
-			if (this.stagingEnabled && this.dockingNodeModule != null)
-			{
-				switch (this.dockingNodeModule.state.ToLower())
-				{
-					case "preattached":
-						this.dockingNodeModule.Decouple();
-						break;
-					case "docked (dockee)":
-					case "docked (docker)":
-					case "docked (same vessel)":
-						this.dockingNodeModule.Undock();
-						break;
-					default:
-						break;
-				}
-			}
-		}
-		*/
+                        if (this.stagingEnabled && this.dockingNodeModule != null)
+                        {
+                            switch (this.dockingNodeModule.state.ToLower())
+                            {
+                                case "preattached":
+                                    this.dockingNodeModule.Decouple();
+                                    break;
+                                case "docked (dockee)":
+                                case "docked (docker)":
+                                case "docked (same vessel)":
+                                    this.dockingNodeModule.Undock();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    */
 
+#if true
         [KSPAction("Control from Here")]
 		public void MakeReferenceTransformAction(KSPActionParam param)
 		{
@@ -487,13 +509,13 @@ namespace TweakableEverything
 			}
 		}
 
-
-        /*
-		 * @subclass -- Chopping this out pending rewrite; should happen with Stock's logic.
-		protected void OnStagingToggle(object sender, ModuleStagingToggle.BoolArg arg)
-		{
-			this.LogDebug("OnStagingToggle called.");
-			this.stagingEnabled = arg.Value;
-		}*/
-    }
+#endif
+                    /*
+                     * @subclass -- Chopping this out pending rewrite; should happen with Stock's logic.
+                    protected void OnStagingToggle(object sender, ModuleStagingToggle.BoolArg arg)
+                    {
+                        this.LogDebug("OnStagingToggle called.");
+                        this.stagingEnabled = arg.Value;
+                    }*/
+                }
 }

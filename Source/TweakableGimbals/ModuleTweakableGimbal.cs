@@ -46,10 +46,10 @@ namespace TweakableEverything
 	{
 		protected ModuleGimbal gimbalModule;
 
-#if true
+#if false
         // Stores our tweaked value for gimbal range.
         [KSPField(isPersistant = true, guiName = "Gimbal Range", guiUnits = "°", guiFormat = "F1",
-			guiActiveEditor = true)]
+			guiActiveEditor = false)]
 		[UI_FloatRange(minValue = float.MinValue, maxValue = float.MaxValue, stepIncrement = .1f)]
 		public float gimbalRange;
 #endif
@@ -72,7 +72,9 @@ namespace TweakableEverything
 
 		public ModuleTweakableGimbal()
 		{
+#if false
 			this.gimbalRange = -1f;
+#endif
 			this.reverseGimbalControl = false;
 			this.lowerMult = 0f;
 			this.upperMult = 3f;
@@ -107,7 +109,7 @@ namespace TweakableEverything
             ModuleGimbal gimbalPrefab;
 			if (PartLoader.getPartInfoByName(base.part.partInfo.name).partPrefab.tryGetFirstModuleOfType(out gimbalPrefab))
 			{
-                // Initialize the gimbal range tweakable and value.
+				// Initialize the gimbal range tweakable and value.
 #if false
                 	public static void InitializeTweakable<T>(
 			UI_Control floatRange,
@@ -119,7 +121,8 @@ namespace TweakableEverything
 			bool clobberEverywhere = false
 		)
 #endif
-                TweakableTools.InitializeTweakable<ModuleTweakableGimbal>(
+#if false
+				TweakableTools.InitializeTweakable<ModuleTweakableGimbal>(
 					this.Fields["gimbalRange"].uiControlCurrent(),
 					ref this.gimbalRange,
 					ref this.gimbalModule.gimbalRange,
@@ -128,11 +131,12 @@ namespace TweakableEverything
 					this.upperMult
                     ,true
 				);
+#endif
 			}
 #endif
 
-                // If we're in flight mode...
-                if (HighLogic.LoadedSceneIsFlight)
+				// If we're in flight mode...
+				if (HighLogic.LoadedSceneIsFlight)
 			{
 				// ...and if our control state and gimbal range don't match...
 				if (
