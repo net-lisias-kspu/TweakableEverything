@@ -72,98 +72,21 @@ namespace TweakableEverything
 		// Construct ALL the objects.
 		public ModuleTweakableReactionWheel()
 		{
-			// -1 will indicate an uninitialized value.
-			this.RollTorque = -1;
-			this.PitchTorque = -1;
-			this.YawTorque = -1;
-
 			this.TorqueGain = 1f;
 		}
 
 		public override void OnLoad(ConfigNode node)
 		{
+			log.info("OnLoad for {0}", this.part.name);
 			base.OnLoad(node);
-
-			if (this.TorqueGain > 1f)
-			{
-				this.TorqueGain /= 100f;
-			}
+			this.Init();
 		}
 
-		// Runs on start.
 		public override void OnStart(StartState state)
 		{
-			using (PooledDebugLogger log = PooledDebugLogger.New(this))
-			{
-				#if DEBUG
-				try {
-				#endif
-				
-				log.AppendFormat("{0}: starting up", this.ToString());
-
-				// Start up the underlying PartModule stuff.
-				base.OnStart(state);
-
-				log.Append("\n\tbase started up");
-
-				ModuleReactionWheel prefabModule;
-
-				// Fetch the reaction wheel module.
-				if (this.part.tryGetFirstModuleOfType<ModuleReactionWheel>(out this.reactionWheelModule))
-				{
-					log.AppendFormat("\n\tFound ModuleReactionWheel {0}", this.reactionWheelModule);
-
-					if (PartLoader.getPartInfoByName(this.part.partInfo.name).partPrefab
-						.tryGetFirstModuleOfType<ModuleReactionWheel>(out prefabModule))
-					{
-						log.AppendFormat("\n\tFound prefab module {0}", prefabModule);
-
-						TweakableTools.InitializeTweakable<ModuleTweakableReactionWheel>(
-							this.Fields["RollTorque"].uiControlCurrent(),
-							ref this.RollTorque,
-							ref this.reactionWheelModule.RollTorque,
-							prefabModule.RollTorque
-						);
-
-						log.Append("\n\tRollTorque setup");
-
-						TweakableTools.InitializeTweakable<ModuleTweakableReactionWheel>(
-							this.Fields["PitchTorque"].uiControlCurrent(),
-							ref this.PitchTorque,
-							ref this.reactionWheelModule.PitchTorque,
-							prefabModule.PitchTorque
-						);
-
-						log.Append("\n\tPitchTorque setup");
-
-						TweakableTools.InitializeTweakable<ModuleTweakableReactionWheel>(
-							this.Fields["YawTorque"].uiControlCurrent(),
-							ref this.YawTorque,
-							ref this.reactionWheelModule.YawTorque,
-							prefabModule.YawTorque
-						);
-
-						log.Append("\n\tYawTorque setup");
-					}
-				}
-
-				var torqueGainCtl = this.Fields["TorqueGain"].uiControlCurrent();
-
-				if (torqueGainCtl is UI_FloatRange)
-				{
-					var torqueGainSlider = torqueGainCtl as UI_FloatRange;
-
-					torqueGainSlider.maxValue = 1f;
-					torqueGainSlider.stepIncrement = 0.025f;
-				}
-
-				log.Append("\n\tStarted!");
-				#if DEBUG
-				} finally {
-				log.Print();
-				}
-				#endif
-			}
+			log.info("OnStart for {0}", this.part.name);
+			base.OnStart(state);
+			this.Setup();
 		}
 
 		// Runs late in the update cycle
@@ -175,6 +98,87 @@ namespace TweakableEverything
 				this.reactionWheelModule.PitchTorque = this.PitchTorque * this.TorqueGain;
 				this.reactionWheelModule.YawTorque = this.YawTorque * this.TorqueGain;
 			}
+		}
+
+		private void Init()
+		{
+			log.dbg("Init {0}", this.part.name);
+
+			if (!this.part.tryGetFirstModuleOfType<ModuleReactionWheel>(out this.reactionWheelModule))
+			{
+				log.warn("Failed to locate a ModuleReactionWheel for {0}!", this.part.name);
+				return;
+			}
+
+			log.info("Found prefab module {0} for partInfo {1} .", this.reactionWheelModule, this.part.name);
+			this.RollTorque = this.reactionWheelModule.RollTorque;
+			this.PitchTorque = this.reactionWheelModule.PitchTorque;
+			this.YawTorque = this.reactionWheelModule.YawTorque;
+
+			if (this.TorqueGain > 1f)
+			{
+				this.TorqueGain /= 100f;
+			}
+
+			{
+				BaseField field = this.Fields["TorqueGain"];
+				UI_Control torqueGainCtl = field.uiControlCurrent();
+				if (torqueGainCtl is UI_FloatRange)
+				{
+					UI_FloatRange torqueGainSlider = torqueGainCtl as UI_FloatRange;
+
+					torqueGainSlider.maxValue = 1f;
+					torqueGainSlider.stepIncrement = 0.025f;
+				}
+			}
+		}
+
+		private void Setup()
+		{
+			log.dbg("Setup {0}", this.part.name);
+
+			AvailablePart ap = PartLoader.getPartInfoByName(this.part.name);
+			if (null == ap || null == ap.partPrefab)
+			{
+				log.warn("Got a null on AvailablePart in partPrefab !");
+				return;
+			}
+
+			ModuleReactionWheel prefabModule;
+			if (ap.partPrefab.tryGetFirstModuleOfType<ModuleReactionWheel>(out prefabModule))
+			{
+				log.info("Found prefab module {0} for partInfo {1} .", prefabModule, this.part.partInfo.name);
+
+				TweakableTools.InitializeTweakable<ModuleTweakableReactionWheel>(
+					this.Fields["RollTorque"].uiControlCurrent(),
+					ref this.RollTorque,
+					ref this.reactionWheelModule.RollTorque,
+					prefabModule.RollTorque
+				);
+				log.info("RollTorque setup");
+
+				TweakableTools.InitializeTweakable<ModuleTweakableReactionWheel>(
+					this.Fields["PitchTorque"].uiControlCurrent(),
+					ref this.PitchTorque,
+					ref this.reactionWheelModule.PitchTorque,
+					prefabModule.PitchTorque
+				);
+				log.info("PitchTorque setup");
+
+				TweakableTools.InitializeTweakable<ModuleTweakableReactionWheel>(
+					this.Fields["YawTorque"].uiControlCurrent(),
+					ref this.YawTorque,
+					ref this.reactionWheelModule.YawTorque,
+					prefabModule.YawTorque
+				);
+				log.info("YawTorque setup");
+			}
+		}
+
+		private static readonly KSPe.Util.Log.Logger log = KSPe.Util.Log.Logger.CreateForType<ModuleTweakableReactionWheel>("ModuleTweakableReactionWheel");
+		static ModuleTweakableReactionWheel()
+		{
+			log.level = KSPe.Util.Log.Level.DETAIL;
 		}
 	}
 }
