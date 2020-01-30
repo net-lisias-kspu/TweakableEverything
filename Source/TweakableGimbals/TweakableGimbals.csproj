@@ -56,9 +56,6 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\GameData\TweakableEverything\TweakableGimbals.cfg" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

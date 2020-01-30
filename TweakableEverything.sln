@@ -3,36 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDockingNode", "Source/TweakableDockingNode\TweakableDockingNode.csproj", "{EBEA2280-E6EC-4B61-8A0E-A9909AAC9206}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDockingNode", "Source\TweakableDockingNode\TweakableDockingNode.csproj", "{EBEA2280-E6EC-4B61-8A0E-A9909AAC9206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDeployablePanels", "Source/TweakableDeployablePanels\TweakableDeployablePanels.csproj", "{047D6609-21D0-4DD0-A8A0-37BB9D270100}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableDeployablePanels", "Source\TweakableDeployablePanels\TweakableDeployablePanels.csproj", "{047D6609-21D0-4DD0-A8A0-37BB9D270100}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableReactionWheels", "Source/TweakableReactionWheels\TweakableReactionWheels.csproj", "{E5B0D4C8-F539-4825-8823-D9E37716ACEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableReactionWheels", "Source\TweakableReactionWheels\TweakableReactionWheels.csproj", "{E5B0D4C8-F539-4825-8823-D9E37716ACEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableGimbals", "Source/TweakableGimbals\TweakableGimbals.csproj", "{A9127548-5542-47FC-B6C2-7129E6573E51}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableGimbals", "Source\TweakableGimbals\TweakableGimbals.csproj", "{A9127548-5542-47FC-B6C2-7129E6573E51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableEVA", "Source/TweakableEVA\TweakableEVA.csproj", "{A8B2B965-ABA5-4ADE-9F8F-F24792D281D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableEVA", "Source\TweakableEVA\TweakableEVA.csproj", "{A8B2B965-ABA5-4ADE-9F8F-F24792D281D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableIntakes", "Source/TweakableIntakes\TweakableIntakes.csproj", "{42F2AF4D-3432-47C3-83A4-AAF1E0CD8169}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableIntakes", "Source\TweakableIntakes\TweakableIntakes.csproj", "{42F2AF4D-3432-47C3-83A4-AAF1E0CD8169}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableParachutes", "Source/TweakableParachutes\TweakableParachutes.csproj", "{22DD291E-E4BF-4759-BD6D-4EA736B937C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableParachutes", "Source\TweakableParachutes\TweakableParachutes.csproj", "{22DD291E-E4BF-4759-BD6D-4EA736B937C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableSAS", "Source/TweakableSAS\TweakableSAS.csproj", "{1E0E19C1-10C5-4EB2-AD41-5A27E9A31C24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableSAS", "Source\TweakableSAS\TweakableSAS.csproj", "{1E0E19C1-10C5-4EB2-AD41-5A27E9A31C24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableFuelPumps", "Source/TweakableFuelPumps\TweakableFuelPumps.csproj", "{AD1165CC-1868-453F-B816-909D1B557141}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TweakableFuelPumps", "Source\TweakableFuelPumps\TweakableFuelPumps.csproj", "{AD1165CC-1868-453F-B816-909D1B557141}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4E024A9F-1FCF-4781-9B5D-3D11A0CE80CE}"
-	ProjectSection(SolutionItems) = preProject
-		buildRelease.bat = buildRelease.bat
-		Changelog.txt = Changelog.txt
-		deploy.bat = deploy.bat
-		jenkins.txt = jenkins.txt
-		License.txt = License.txt
-		Readme.md = Readme.md
-		TweakableEverything.version = TweakableEverything.version
-	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllProjects", "Source/AllProjects\AllProjects.csproj", "{7831DDE3-378F-4BF4-A3C4-0A5CE0234571}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AllProjects", "Source\AllProjects\AllProjects.csproj", "{7831DDE3-378F-4BF4-A3C4-0A5CE0234571}"
 	ProjectSection(ProjectDependencies) = postProject
 		{047D6609-21D0-4DD0-A8A0-37BB9D270100} = {047D6609-21D0-4DD0-A8A0-37BB9D270100}
 		{22DD291E-E4BF-4759-BD6D-4EA736B937C4} = {22DD291E-E4BF-4759-BD6D-4EA736B937C4}
@@ -185,59 +176,10 @@ Global
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
-		$1.DirectoryNamespaceAssociation = None
-		$1.ResourceNamePolicy = FileFormatDefault
 		$0.TextStylePolicy = $4
-		$2.FileWidth = 120
-		$2.TabsToSpaces = False
-		$2.EolMarker = Unix
-		$2.inheritsSet = VisualStudio
-		$2.inheritsScope = text/plain
-		$2.scope = text/x-csharp
-		$0.CSharpFormattingPolicy = $3
-		$3.IndentSwitchBody = True
-		$3.IndentBlocksInsideExpressions = True
-		$3.AnonymousMethodBraceStyle = NextLine
-		$3.PropertyBraceStyle = NextLine
-		$3.PropertyGetBraceStyle = NextLine
-		$3.PropertySetBraceStyle = NextLine
-		$3.EventBraceStyle = NextLine
-		$3.EventAddBraceStyle = NextLine
-		$3.EventRemoveBraceStyle = NextLine
-		$3.StatementBraceStyle = NextLine
-		$3.ElseNewLinePlacement = NewLine
-		$3.CatchNewLinePlacement = NewLine
-		$3.FinallyNewLinePlacement = NewLine
-		$3.WhileNewLinePlacement = DoNotCare
-		$3.ArrayInitializerWrapping = DoNotChange
-		$3.ArrayInitializerBraceStyle = NextLine
-		$3.BeforeMethodDeclarationParentheses = False
-		$3.BeforeMethodCallParentheses = False
-		$3.BeforeConstructorDeclarationParentheses = False
-		$3.BeforeDelegateDeclarationParentheses = False
-		$3.NewParentheses = False
-		$3.SpacesBeforeBrackets = False
-		$3.AlignToFirstMethodDeclarationParameter = False
-		$3.AlignToFirstIndexerDeclarationParameter = False
-		$3.inheritsSet = Mono
-		$3.inheritsScope = text/x-csharp
-		$3.scope = text/x-csharp
-		$4.FileWidth = 120
-		$4.TabsToSpaces = False
-		$4.EolMarker = Unix
-		$4.inheritsSet = VisualStudio
-		$4.inheritsScope = text/plain
-		$4.scope = text/plain
-		$0.VersionControlPolicy = $5
-		$5.CommitMessageStyle = $6
-		$6.FirstFilePrefix = 
-		$6.FileSeparator = @:\n
-		$6.LineAlign = 0
-		$6.InterMessageLines = 0
-		$5.inheritsSet = Mono
-		$0.StandardHeader = $7
-		$7.Text = @${ProjectName}, a TweakableEverything module\n\n${FileName}\n\nCopyright © ${Year}, ${AuthorName}\nAll rights reserved.\n\nRedistribution and use in source and binary forms, with or without modification,\nare permitted provided that the following conditions are met:\n\n1. Redistributions of source code must retain the above copyright notice,\n   this list of conditions and the following disclaimer.\n\n2. Redistributions in binary form must reproduce the above copyright notice,\n   this list of conditions and the following disclaimer in the documentation and/or other\n   materials provided with the distribution.\n\n3. Neither the name of the copyright holder nor the names of its contributors may be used\n   to endorse or promote products derived from this software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,\nINCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\nDISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR\nSERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,\nWHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-		$7.IncludeInNewFiles = True
+		$0.TextStylePolicy = $5
+		$5.FileWidth = 132
+		$5.scope = text/plain
 		description = For all your part tweaking needs.
 		version = 1.2
 	EndGlobalSection
