@@ -115,11 +115,6 @@ namespace TweakableEverything
 			this.PitchTorque = this.reactionWheelModule.PitchTorque;
 			this.YawTorque = this.reactionWheelModule.YawTorque;
 
-			if (this.TorqueGain > 1f)
-			{
-				this.TorqueGain /= 100f;
-			}
-
 			{
 				BaseField field = this.Fields["TorqueGain"];
 				UI_Control torqueGainCtl = field.uiControlCurrent();
@@ -136,6 +131,8 @@ namespace TweakableEverything
 		private void Setup()
 		{
 			log.dbg("Setup {0}", this.part.name);
+
+			this.TorqueGain = Math.Min(Math.Max(this.TorqueGain, 0f), 1f);
 
 			AvailablePart ap = PartLoader.getPartInfoByName(this.part.name);
 			if (null == ap || null == ap.partPrefab)
